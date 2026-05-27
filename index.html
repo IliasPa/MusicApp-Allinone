@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Musician Toolkit</title>
-    <link rel="icon" type="image/png" href="image.png">
-    <link rel="apple-touch-icon" href="image.png">
+    <link rel="icon" type="image/png" href="image.png" />
+    <link rel="apple-touch-icon" href="image.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap"
@@ -1696,8 +1696,71 @@
         justify-content: space-between;
       }
 
-      /* ─── Song Vault ─────────────────────────────────────────── */
-      .songs-toolbar {
+      /* ─── Song Vault v2 ─────────────────────────────────────── */
+      .songs-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .songs-type-row {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .type-btn {
+        background: var(--surface2);
+        border: 1px solid var(--border2);
+        border-radius: var(--radius);
+        color: var(--text-dim);
+        font-family: var(--font-ui);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 8px 16px;
+        cursor: pointer;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .type-btn:hover {
+        color: var(--text);
+        border-color: #444;
+      }
+      .type-btn.active {
+        background: var(--amber);
+        border-color: var(--amber);
+        color: #000;
+        font-weight: 600;
+      }
+      .songs-status-row {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+        min-height: 30px;
+      }
+      .status-filter-btn {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        color: var(--text-dim);
+        font-size: 12px;
+        font-weight: 500;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .status-filter-btn:hover {
+        border-color: var(--border2);
+        color: var(--text);
+      }
+      .status-filter-btn.active {
+        background: rgba(245, 166, 35, 0.15);
+        border-color: var(--amber-dim);
+        color: var(--amber);
+      }
+      .songs-search-row {
         display: flex;
         gap: 10px;
         align-items: center;
@@ -1707,17 +1770,9 @@
         flex: 1;
         min-width: 0;
       }
-      #songs-filter-key {
-        width: 120px;
-        flex-shrink: 0;
-      }
-      #songs-sort {
-        width: 130px;
-        flex-shrink: 0;
-      }
       .songs-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         gap: 16px;
       }
       .song-card {
@@ -1727,28 +1782,66 @@
         padding: 16px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        cursor: pointer;
-        transition: border-color 0.15s;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
       }
       .song-card:hover {
         border-color: var(--amber-dim);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      }
+      .song-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 6px;
+      }
+      .song-card-status {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-dim);
+      }
+      .song-card-actions {
+        display: flex;
+        gap: 4px;
+        opacity: 0;
+        transition: opacity 0.15s;
+      }
+      .song-card:hover .song-card-actions {
+        opacity: 1;
       }
       .song-card-title {
         font-family: var(--font-head);
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 600;
         color: var(--text);
+        margin-bottom: 2px;
+        word-break: break-word;
+        cursor: pointer;
+      }
+      .song-card-title:hover {
+        color: var(--amber);
       }
       .song-card-artist {
         font-size: 12px;
         color: var(--text-dim);
+        margin-bottom: 8px;
+      }
+      .song-card-divider {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 8px 0;
+      }
+      .song-card-meta {
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-bottom: 6px;
       }
       .song-card-tags {
         display: flex;
-        gap: 6px;
+        gap: 5px;
         flex-wrap: wrap;
-        margin-top: 4px;
+        margin-bottom: 6px;
       }
       .song-tag {
         font-size: 10px;
@@ -1763,7 +1856,32 @@
         border-color: var(--amber-dim);
         color: var(--amber);
       }
+      .song-card-footer {
+        font-size: 11px;
+        color: var(--text-dimmer);
+        margin-top: auto;
+        padding-top: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .song-type-badge {
+        font-size: 10px;
+        padding: 2px 8px;
+        border-radius: 100px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .song-type-badge.original {
+        background: rgba(245, 166, 35, 0.15);
+        color: var(--amber);
+      }
+      .song-type-badge.cover {
+        background: rgba(79, 195, 247, 0.15);
+        color: var(--blue);
+      }
       .song-empty {
+        grid-column: 1/-1;
         text-align: center;
         padding: 60px 0;
         color: var(--text-dimmer);
@@ -1777,6 +1895,402 @@
         font-size: 20px;
         letter-spacing: 2px;
         margin-top: 8px;
+      }
+      .pending-badge-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(245, 166, 35, 0.08);
+        border: 1px solid rgba(245, 166, 35, 0.25);
+        border-radius: var(--radius);
+        padding: 8px 14px;
+        font-size: 13px;
+        color: var(--amber);
+        margin-bottom: 14px;
+      }
+
+      /* ─── Quick Capture Overlay ───────────────────────────────── */
+      .qc-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.82);
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .qc-panel {
+        background: var(--surface);
+        border: 1px solid var(--border2);
+        border-radius: var(--radius-lg);
+        width: 100%;
+        max-width: 520px;
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .qc-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .qc-title {
+        font-family: var(--font-display);
+        font-size: 22px;
+        letter-spacing: 1px;
+        color: var(--amber);
+      }
+      .qc-type-row {
+        display: flex;
+        gap: 12px;
+      }
+      .qc-type-row > .field-group {
+        flex: 1;
+        margin-bottom: 0;
+      }
+
+      /* ─── Song Editor Overlay ─────────────────────────────────── */
+      .se-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 600;
+        display: flex;
+        align-items: stretch;
+        justify-content: flex-end;
+      }
+      .se-bg {
+        flex: 1;
+        cursor: pointer;
+      }
+      .se-panel {
+        background: var(--surface);
+        border-left: 1px solid var(--border2);
+        width: min(820px, 100vw);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        animation: seSlideIn 0.2s ease;
+      }
+      @keyframes seSlideIn {
+        from {
+          transform: translateX(40px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .se-header {
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        flex-shrink: 0;
+        background: var(--surface);
+      }
+      .se-header-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 0;
+      }
+      .se-title-input {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid var(--border2);
+        border-radius: 0;
+        color: var(--text);
+        font-family: var(--font-head);
+        font-size: 22px;
+        font-weight: 600;
+        padding: 4px 0;
+        outline: none;
+        width: 100%;
+      }
+      .se-title-input:focus {
+        border-bottom-color: var(--amber);
+      }
+      .se-title-input::placeholder {
+        color: var(--text-dimmer);
+      }
+      .se-header-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .se-type-toggle {
+        display: flex;
+        border: 1px solid var(--border2);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .se-type-btn {
+        background: none;
+        border: none;
+        color: var(--text-dim);
+        font-family: var(--font-ui);
+        font-size: 12px;
+        font-weight: 600;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .se-type-btn.active {
+        background: var(--amber);
+        color: #000;
+      }
+      .se-status-sel {
+        background: var(--surface2);
+        border: 1px solid var(--border2);
+        border-radius: var(--radius);
+        color: var(--text);
+        font-family: var(--font-ui);
+        font-size: 12px;
+        padding: 5px 10px;
+        outline: none;
+        cursor: pointer;
+      }
+      .se-header-actions {
+        display: flex;
+        gap: 6px;
+        flex-shrink: 0;
+        align-items: flex-start;
+      }
+      .se-inner-tabs {
+        display: flex;
+        border-bottom: 1px solid var(--border);
+        padding: 0 20px;
+        flex-shrink: 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .se-inner-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .se-tab-btn {
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: var(--text-dim);
+        font-family: var(--font-ui);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 11px 14px 9px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.15s;
+        margin-bottom: -1px;
+      }
+      .se-tab-btn:hover {
+        color: var(--text);
+      }
+      .se-tab-btn.active {
+        color: var(--amber);
+        border-bottom-color: var(--amber);
+      }
+      .se-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+      }
+      .se-tab-pane {
+        display: none;
+      }
+      .se-tab-pane.active {
+        display: block;
+      }
+      .se-compact-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .se-compact-row .field-group {
+        flex: 1;
+        min-width: 80px;
+        margin-bottom: 0;
+      }
+      .se-sections {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .se-section-card {
+        background: var(--surface2);
+        border: 1px solid var(--border2);
+        border-radius: var(--radius);
+        padding: 12px 14px;
+        transition: border-color 0.15s;
+      }
+      .se-section-card.drag-over {
+        border-color: var(--amber);
+        background: rgba(245, 166, 35, 0.05);
+      }
+      .se-section-hdr {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .se-drag-handle {
+        color: var(--text-dimmer);
+        cursor: grab;
+        user-select: none;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+      .se-section-name-sel {
+        background: var(--surface);
+        border: 1px solid var(--border2);
+        border-radius: var(--radius);
+        color: var(--text);
+        font-family: var(--font-ui);
+        font-size: 13px;
+        font-weight: 600;
+        padding: 4px 8px;
+        flex: 1;
+        outline: none;
+      }
+      .se-drop-zone {
+        border: 2px dashed var(--border2);
+        border-radius: var(--radius-lg);
+        padding: 28px;
+        text-align: center;
+        color: var(--text-dim);
+        cursor: pointer;
+        transition: all 0.15s;
+        margin-bottom: 16px;
+      }
+      .se-drop-zone:hover,
+      .se-drop-zone.drag-over {
+        border-color: var(--amber-dim);
+        background: rgba(245, 166, 35, 0.04);
+        color: var(--text);
+      }
+      .se-drop-zone-icon {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+      .se-drop-zone-text {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      .se-drop-zone-sub {
+        font-size: 12px;
+        color: var(--text-dimmer);
+      }
+      .se-audio-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .se-audio-item {
+        background: var(--surface2);
+        border: 1px solid var(--border2);
+        border-radius: var(--radius);
+        padding: 12px 14px;
+      }
+      .se-audio-item-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .se-audio-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .se-audio-name {
+        flex: 1;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text);
+        word-break: break-all;
+      }
+      .se-audio-size {
+        font-size: 11px;
+        color: var(--text-dimmer);
+        font-family: var(--font-mono);
+        flex-shrink: 0;
+      }
+      .se-audio-date {
+        font-size: 11px;
+        color: var(--text-dimmer);
+        flex-shrink: 0;
+      }
+      .se-audio-label-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .se-audio-label-input {
+        flex: 1;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        color: var(--text);
+        font-family: var(--font-ui);
+        font-size: 12px;
+        padding: 4px 10px;
+        outline: none;
+      }
+      .se-audio-label-input:focus {
+        border-color: var(--blue);
+      }
+      .se-audio-actions {
+        display: flex;
+        gap: 6px;
+      }
+      .se-audio-sync-status {
+        font-size: 11px;
+      }
+      .se-audio-sync-status.pending {
+        color: var(--amber);
+      }
+      .se-audio-sync-status.synced {
+        color: var(--green);
+      }
+      .se-audio-player {
+        width: 100%;
+        margin-top: 8px;
+        display: none;
+      }
+      .se-audio-player audio {
+        width: 100%;
+        height: 32px;
+      }
+      .sync-progress-wrap {
+        margin: 10px 0;
+        display: none;
+      }
+      .sync-progress-bar {
+        height: 8px;
+        background: var(--surface2);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 4px;
+      }
+      .sync-progress-fill {
+        height: 100%;
+        background: var(--amber);
+        border-radius: 4px;
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+      .sync-progress-text {
+        font-size: 12px;
+        color: var(--text-dim);
+        text-align: center;
       }
 
       /* ─── Modal ──────────────────────────────────────────────── */
@@ -2569,9 +3083,21 @@
     <div id="app">
       <!-- ─── Header ─────────────────────────────────────────────── -->
       <header id="header">
-        <div class="app-logo" style="display:flex;align-items:center;gap:10px">
-          <img src="image.png" alt="Musician Toolkit" style="width:32px;height:32px;border-radius:6px;flex-shrink:0">
-          Musician Toolkit <span>v0.2.0</span>
+        <div
+          class="app-logo"
+          style="display: flex; align-items: center; gap: 10px"
+        >
+          <img
+            src="image.png"
+            alt="Musician Toolkit"
+            style="
+              width: 32px;
+              height: 32px;
+              border-radius: 6px;
+              flex-shrink: 0;
+            "
+          />
+          Musician Toolkit <span>v0.3</span>
         </div>
         <nav id="tab-nav">
           <button class="tab-btn" data-tab="tuner">🎸 Tuner</button>
@@ -2890,36 +3416,82 @@
 
         <!-- ─── Song Vault Tab ───────────────────────────────────── -->
         <section id="tab-songs" class="tab-panel">
-          <div class="songs-toolbar">
+          <!-- Pending sync badge -->
+          <div
+            id="songs-pending-badge"
+            class="pending-badge-bar"
+            style="display: none"
+          >
+            <span id="songs-pending-text"></span>
+          </div>
+
+          <!-- Type filter row -->
+          <div class="songs-header">
+            <div class="songs-type-row">
+              <button
+                class="type-btn active"
+                data-type="all"
+                onclick="songsSetType('all')"
+              >
+                All
+              </button>
+              <button
+                class="type-btn"
+                data-type="original"
+                onclick="songsSetType('original')"
+              >
+                ⭐ My Creations
+              </button>
+              <button
+                class="type-btn"
+                data-type="cover"
+                onclick="songsSetType('cover')"
+              >
+                🎵 Covers
+              </button>
+            </div>
+            <button
+              class="btn btn-primary"
+              onclick="quickCaptureOpen()"
+              style="white-space: nowrap"
+            >
+              + Quick Idea
+            </button>
+          </div>
+
+          <!-- Status filter row -->
+          <div class="songs-status-row" id="songs-status-row"></div>
+
+          <!-- Search + sort row -->
+          <div class="songs-search-row">
             <input
               type="text"
               class="field-input songs-search"
               id="songs-search"
-              placeholder="Search songs…"
+              placeholder="Search title, artist, tags…"
               oninput="songsRender()"
               autocomplete="off"
             />
             <select
               class="field-input"
-              id="songs-filter-key"
-              onchange="songsRender()"
-            >
-              <option value="">All keys</option>
-            </select>
-            <select
-              class="field-input"
               id="songs-sort"
               onchange="songsRender()"
+              style="width: 150px; flex-shrink: 0"
             >
-              <option value="title">A → Z</option>
-              <option value="title-desc">Z → A</option>
-              <option value="date">Newest first</option>
+              <option value="updated">Last edited</option>
+              <option value="title">Title A → Z</option>
               <option value="bpm">BPM ↑</option>
+              <option value="key">Key</option>
             </select>
-            <button class="btn btn-primary" onclick="songNew()">
-              + NEW SONG
+            <button
+              class="btn btn-primary"
+              onclick="songEditorOpen(null)"
+              style="white-space: nowrap"
+            >
+              + New Song
             </button>
           </div>
+
           <div class="songs-grid" id="songs-grid"></div>
         </section>
 
@@ -3479,6 +4051,14 @@
                 </button>
               </div>
 
+              <!-- Audio sync progress bar -->
+              <div class="sync-progress-wrap" id="sync-progress-wrap">
+                <div class="sync-progress-bar">
+                  <div class="sync-progress-fill" id="sync-progress-fill"></div>
+                </div>
+                <div class="sync-progress-text" id="sync-progress-text"></div>
+              </div>
+
               <div class="sync-info" id="sync-info">
                 <div class="sync-info-item">
                   <span class="sync-info-key">Last Pushed</span>
@@ -3512,7 +4092,7 @@
               <div class="panel-title"><span class="icon">🎸</span> About</div>
               <div class="about-header">
                 <span class="about-name">Musician Toolkit</span>
-                <span class="about-version">v0.2.0</span>
+                <span class="about-version">v0.3</span>
               </div>
               <p class="about-desc">
                 A professional daily-driver for guitarists and songwriters. Runs
@@ -3719,143 +4299,631 @@
       </div>
     </div>
 
-    <!-- ─── Song Edit Modal ──────────────────────────────────────── -->
+    <!-- ─── Quick Capture Overlay ─────────────────────────────── -->
     <div
-      id="song-modal"
-      class="modal-overlay"
+      id="quick-capture-overlay"
+      class="qc-overlay"
       style="display: none"
-      onclick="songModalBgClick(event)"
+      onclick="qcOverlayBgClick(event)"
     >
-      <div class="modal-box">
-        <div class="modal-header">
-          <div class="modal-title" id="song-modal-title">NEW SONG</div>
+      <div class="qc-panel" onclick="event.stopPropagation()">
+        <div class="qc-header">
+          <div class="qc-title">⚡ Quick Idea</div>
           <button
             class="btn btn-sm"
-            onclick="songModalClose()"
+            onclick="quickCaptureClose()"
             style="line-height: 1"
           >
             ✕
           </button>
         </div>
-        <div class="modal-body">
+        <div class="field-group" style="margin-bottom: 0">
+          <label class="field-label">Title (optional)</label>
+          <input
+            type="text"
+            class="field-input"
+            id="qc-title"
+            placeholder="Untitled Idea…"
+            autocomplete="off"
+          />
+        </div>
+        <div class="field-group" style="margin-bottom: 0">
+          <label class="field-label"
+            >Your idea — lyrics, chords, notes, a feeling…</label
+          >
+          <textarea
+            class="field-input"
+            id="qc-desc"
+            rows="5"
+            placeholder="A melody, a chord progression, a lyric line…"
+            style="
+              resize: vertical;
+              font-family: var(--font-mono);
+              font-size: 13px;
+              line-height: 1.6;
+            "
+          ></textarea>
+        </div>
+        <div class="qc-type-row">
           <div class="field-group">
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 6px;
-              "
-            >
-              <label class="field-label" style="margin: 0">Title *</label>
-              <button
-                class="btn btn-xs btn-blue"
-                id="sm-lookup-btn"
-                onclick="mbLookupSong()"
-              >
-                🔍 Lookup on MusicBrainz
-              </button>
-            </div>
+            <label class="field-label">Type</label>
+            <select class="field-input" id="qc-type" onchange="qcTypeChange()">
+              <option value="original">Original</option>
+              <option value="cover">Cover</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Status</label>
+            <select class="field-input" id="qc-status">
+              <option value="idea">💡 Idea</option>
+              <option value="fragment">🧩 Fragment</option>
+              <option value="in-progress">🔨 In Progress</option>
+              <option value="finished">✅ Finished</option>
+              <option value="performing">🎤 Performing</option>
+            </select>
+          </div>
+        </div>
+        <button
+          class="btn btn-primary btn-full btn-lg"
+          onclick="quickCaptureSave()"
+        >
+          Save Idea
+        </button>
+      </div>
+    </div>
+
+    <!-- ─── Song Editor Overlay ────────────────────────────────── -->
+    <div id="song-editor-overlay" class="se-overlay" style="display: none">
+      <div class="se-bg" onclick="songEditorClose()"></div>
+      <div class="se-panel">
+        <!-- Header -->
+        <div class="se-header">
+          <div class="se-header-main">
             <input
               type="text"
-              class="field-input"
-              id="sm-title"
+              class="se-title-input"
+              id="se-title"
               placeholder="Song title…"
               autocomplete="off"
             />
-          </div>
-          <div
-            id="sm-mb-results"
-            class="mb-results"
-            style="display: none"
-          ></div>
-          <div class="modal-row">
-            <div class="field-group">
-              <label class="field-label">Artist</label>
-              <input
-                type="text"
-                class="field-input"
-                id="sm-artist"
-                placeholder="Artist name…"
-                autocomplete="off"
-              />
-            </div>
-            <div class="field-group">
-              <label class="field-label">Genre</label>
-              <input
-                type="text"
-                class="field-input"
-                id="sm-genre"
-                placeholder="Rock, Folk, Jazz…"
-                autocomplete="off"
-              />
+            <div class="se-header-row">
+              <div class="se-type-toggle">
+                <button
+                  class="se-type-btn active"
+                  data-type="original"
+                  onclick="seSetType('original')"
+                >
+                  ⭐ Original
+                </button>
+                <button
+                  class="se-type-btn"
+                  data-type="cover"
+                  onclick="seSetType('cover')"
+                >
+                  🎵 Cover
+                </button>
+              </div>
+              <select class="se-status-sel" id="se-status"></select>
             </div>
           </div>
-          <input type="hidden" id="sm-duration" value="0" />
-          <div class="modal-row-3">
-            <div class="field-group">
-              <label class="field-label">Key</label>
-              <select class="field-input" id="sm-key">
-                <option value="">—</option>
-              </select>
-            </div>
-            <div class="field-group">
-              <label class="field-label">BPM</label>
-              <input
-                type="number"
-                class="field-input"
-                id="sm-bpm"
-                min="20"
-                max="300"
-                placeholder="120"
-              />
-            </div>
-            <div class="field-group">
-              <label class="field-label">Time Sig</label>
-              <select class="field-input" id="sm-timesig">
-                <option>4/4</option>
-                <option>3/4</option>
-                <option>6/8</option>
-                <option>2/4</option>
-                <option>5/4</option>
-                <option>7/8</option>
-              </select>
-            </div>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Notes / Lyrics / Chords</label>
-            <textarea
-              class="field-input"
-              id="sm-notes"
-              rows="8"
-              placeholder="Chords, lyrics, structure, capo position…"
-              style="
-                resize: vertical;
-                font-family: var(--font-mono);
-                font-size: 13px;
-                line-height: 1.6;
-              "
-            ></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div class="modal-footer-left">
+          <div class="se-header-actions">
             <button
-              class="btn btn-danger btn-sm"
-              id="sm-delete-btn"
-              onclick="songDelete()"
-              style="display: none"
+              class="btn btn-sm btn-blue"
+              onclick="seSongExport()"
+              title="Export as text chord sheet"
             >
-              Delete Song
+              📄 Export
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="seSave()">
+              💾 Save
+            </button>
+            <button
+              class="btn btn-sm"
+              onclick="songEditorClose()"
+              style="line-height: 1"
+              title="Close"
+            >
+              ✕
             </button>
           </div>
-          <button class="btn btn-sm" onclick="songModalClose()">Cancel</button>
-          <button class="btn btn-primary btn-sm" onclick="songSave()">
-            Save
+        </div>
+
+        <!-- Inner tabs -->
+        <div class="se-inner-tabs">
+          <button
+            class="se-tab-btn active"
+            data-tab="song"
+            onclick="seSetTab('song')"
+          >
+            📝 Song
+          </button>
+          <button
+            class="se-tab-btn"
+            data-tab="audio"
+            onclick="seSetTab('audio')"
+          >
+            🎙️ Audio
+          </button>
+          <button
+            class="se-tab-btn"
+            data-tab="details"
+            onclick="seSetTab('details')"
+          >
+            ℹ️ Details
+          </button>
+          <button class="se-tab-btn" data-tab="gear" onclick="seSetTab('gear')">
+            🔧 Gear & Performance
           </button>
         </div>
+
+        <!-- Content -->
+        <div class="se-content">
+          <!-- ── Tab: Song ── -->
+          <div class="se-tab-pane active" id="se-pane-song">
+            <!-- Original-only fields -->
+            <div id="se-original-fields">
+              <div class="se-compact-row">
+                <div class="field-group">
+                  <label class="field-label">Key</label>
+                  <select class="field-input" id="se-key">
+                    <option value="">—</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label class="field-label">BPM</label>
+                  <input
+                    type="number"
+                    class="field-input"
+                    id="se-bpm"
+                    min="20"
+                    max="300"
+                    placeholder="120"
+                  />
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Time Sig</label>
+                  <select class="field-input" id="se-timesig">
+                    <option>4/4</option>
+                    <option>3/4</option>
+                    <option>6/8</option>
+                    <option>2/4</option>
+                    <option>5/4</option>
+                    <option>7/8</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Capo</label>
+                  <input
+                    type="number"
+                    class="field-input"
+                    id="se-capo"
+                    min="0"
+                    max="12"
+                    placeholder="0"
+                  />
+                </div>
+              </div>
+              <div class="field-group">
+                <label class="field-label"
+                  >Tags
+                  <span
+                    style="
+                      font-weight: 400;
+                      text-transform: none;
+                      font-size: 11px;
+                    "
+                    >(comma-separated)</span
+                  ></label
+                >
+                <input
+                  type="text"
+                  class="field-input"
+                  id="se-tags"
+                  placeholder="ballad, fingerpick, minor…"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="field-group">
+                <label class="field-label">Co-writers</label>
+                <input
+                  type="text"
+                  class="field-input"
+                  id="se-cowriters"
+                  placeholder="Names separated by commas…"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <!-- Cover-only fields -->
+            <div id="se-cover-fields" style="display: none">
+              <div class="field-group">
+                <label class="field-label">Original Artist</label>
+                <input
+                  type="text"
+                  class="field-input"
+                  id="se-artist"
+                  placeholder="Artist name…"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="se-compact-row">
+                <div class="field-group">
+                  <label class="field-label">Key (their version)</label>
+                  <select class="field-input" id="se-cover-key">
+                    <option value="">—</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label class="field-label">BPM</label>
+                  <input
+                    type="number"
+                    class="field-input"
+                    id="se-cover-bpm"
+                    min="20"
+                    max="300"
+                    placeholder="120"
+                  />
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Capo</label>
+                  <input
+                    type="number"
+                    class="field-input"
+                    id="se-cover-capo"
+                    min="0"
+                    max="12"
+                    placeholder="0"
+                  />
+                </div>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Tags</label>
+                <input
+                  type="text"
+                  class="field-input"
+                  id="se-cover-tags"
+                  placeholder="rock, anthem, slow…"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="field-group">
+                <label class="field-label"
+                  >Reference Link
+                  <span
+                    style="
+                      font-weight: 400;
+                      text-transform: none;
+                      font-size: 11px;
+                    "
+                    >(YouTube or other URL)</span
+                  ></label
+                >
+                <input
+                  type="url"
+                  class="field-input"
+                  id="se-reflink"
+                  placeholder="https://youtube.com/watch?v=…"
+                  autocomplete="off"
+                  oninput="seUpdateRefLink(this.value)"
+                />
+              </div>
+              <div
+                id="se-reflink-preview"
+                style="display: none; margin-bottom: 14px"
+              >
+                <a
+                  id="se-reflink-anchor"
+                  href="#"
+                  target="_blank"
+                  rel="noopener"
+                  style="color: var(--blue); font-size: 13px"
+                  >🔗 Open reference link</a
+                >
+              </div>
+              <div class="field-group">
+                <label class="field-label">Reference Notes</label>
+                <textarea
+                  class="field-input"
+                  id="se-refnotes"
+                  rows="2"
+                  style="resize: vertical"
+                  placeholder="How your version differs from the original…"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Sections (shared) -->
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                margin-top: 4px;
+              "
+            >
+              <label class="field-label" style="margin: 0">Sections</label>
+              <button class="btn btn-sm" onclick="seAddSection()">
+                + Add Section
+              </button>
+            </div>
+            <div class="se-sections" id="se-sections"></div>
+
+            <!-- Scratchpad -->
+            <div class="field-group" style="margin-top: 16px">
+              <label class="field-label"
+                >Scratchpad
+                <span
+                  style="
+                    font-weight: 400;
+                    text-transform: none;
+                    font-size: 11px;
+                  "
+                >
+                  — never exported</span
+                >
+              </label>
+              <textarea
+                class="field-input"
+                id="se-scratchpad"
+                rows="4"
+                style="
+                  resize: vertical;
+                  font-family: var(--font-mono);
+                  font-size: 13px;
+                  line-height: 1.6;
+                "
+                placeholder="Unused lines, rhyme ideas, things to try…"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- ── Tab: Audio ── -->
+          <div class="se-tab-pane" id="se-pane-audio">
+            <div
+              class="se-drop-zone"
+              id="se-drop-zone"
+              onclick="document.getElementById('se-audio-input').click()"
+              ondragover="seDropZoneDragOver(event)"
+              ondragleave="seDropZoneDragLeave(event)"
+              ondrop="seDropZoneDrop(event)"
+            >
+              <div class="se-drop-zone-icon">📁</div>
+              <div class="se-drop-zone-text">
+                Drop audio file here or click to browse
+              </div>
+              <div class="se-drop-zone-sub">
+                MP3, WAV, M4A, OGG, WebM, FLAC — max 50 MB
+              </div>
+            </div>
+            <input
+              type="file"
+              id="se-audio-input"
+              accept=".mp3,.wav,.m4a,.ogg,.webm,.flac,audio/*"
+              style="display: none"
+              onchange="seAudioFileSelected(event)"
+              multiple
+            />
+            <div class="se-audio-list" id="se-audio-list"></div>
+          </div>
+
+          <!-- ── Tab: Details ── -->
+          <div class="se-tab-pane" id="se-pane-details">
+            <div class="field-group">
+              <label class="field-label">Description / Story</label>
+              <textarea
+                class="field-input"
+                id="se-description"
+                rows="4"
+                style="resize: vertical"
+                placeholder="What the song is about, the inspiration, private notes…"
+              ></textarea>
+            </div>
+            <div id="se-details-original-fields">
+              <div class="field-group">
+                <label class="field-label">Copyright Year</label>
+                <input
+                  type="text"
+                  class="field-input"
+                  id="se-copyright"
+                  placeholder="2024"
+                />
+              </div>
+              <div class="field-group">
+                <label class="field-label"
+                  >PRO Registration
+                  <span style="font-weight: 400; text-transform: none"
+                    >(ASCAP / BMI / other)</span
+                  ></label
+                >
+                <input
+                  type="text"
+                  class="field-input"
+                  id="se-pro"
+                  placeholder="BMI — #12345678"
+                />
+              </div>
+              <div class="field-group">
+                <label class="field-label">ISRC Code</label>
+                <input
+                  type="text"
+                  class="field-input"
+                  id="se-isrc"
+                  placeholder="US-…"
+                />
+              </div>
+            </div>
+            <div class="field-row" style="margin-top: 8px">
+              <div class="field-group" style="margin-bottom: 0">
+                <label class="field-label">Created</label>
+                <div
+                  id="se-created-display"
+                  style="
+                    color: var(--text-dim);
+                    font-size: 13px;
+                    padding-top: 4px;
+                  "
+                >
+                  —
+                </div>
+              </div>
+              <div class="field-group" style="margin-bottom: 0">
+                <label class="field-label">Last Edited</label>
+                <div
+                  id="se-updated-display"
+                  style="
+                    color: var(--text-dim);
+                    font-size: 13px;
+                    padding-top: 4px;
+                  "
+                >
+                  —
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Tab: Gear & Performance ── -->
+          <div class="se-tab-pane" id="se-pane-gear">
+            <div class="field-group">
+              <label class="field-label">Strumming / Picking Pattern</label>
+              <input
+                type="text"
+                class="field-input"
+                id="se-strumming"
+                placeholder="↓ ↑ ↓ ↑ ↑ ↓ or describe in words…"
+              />
+            </div>
+            <div class="field-group">
+              <label class="field-label">Amp Settings</label>
+              <textarea
+                class="field-input"
+                id="se-amp"
+                rows="2"
+                style="resize: vertical"
+                placeholder="Gain 4, Treble 7, Mid 5, Bass 6, Reverb 3…"
+              ></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Pedals / Signal Chain</label>
+              <textarea
+                class="field-input"
+                id="se-pedals"
+                rows="2"
+                style="resize: vertical"
+                placeholder="Tube Screamer → Chorus → Delay…"
+              ></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Live Arrangement Notes</label>
+              <textarea
+                class="field-input"
+                id="se-live-notes"
+                rows="3"
+                style="resize: vertical"
+                placeholder="Extended outro when crowd is good, skip intro riff…"
+              ></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Tempo Feel</label>
+              <div
+                style="
+                  display: flex;
+                  gap: 16px;
+                  flex-wrap: wrap;
+                  padding-top: 6px;
+                "
+              >
+                <label
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    cursor: pointer;
+                    font-size: 13px;
+                  "
+                >
+                  <input
+                    type="radio"
+                    name="se-feel-radio"
+                    value=""
+                    id="se-feel-none"
+                  />
+                  None
+                </label>
+                <label
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    cursor: pointer;
+                    font-size: 13px;
+                  "
+                >
+                  <input type="radio" name="se-feel-radio" value="Straight" />
+                  Straight
+                </label>
+                <label
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    cursor: pointer;
+                    font-size: 13px;
+                  "
+                >
+                  <input type="radio" name="se-feel-radio" value="Swing" />
+                  Swing
+                </label>
+                <label
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    cursor: pointer;
+                    font-size: 13px;
+                  "
+                >
+                  <input type="radio" name="se-feel-radio" value="Shuffle" />
+                  Shuffle
+                </label>
+                <label
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    cursor: pointer;
+                    font-size: 13px;
+                  "
+                >
+                  <input type="radio" name="se-feel-radio" value="Rubato" />
+                  Rubato
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delete row (edit mode only) -->
+          <div
+            id="se-delete-row"
+            style="
+              display: none;
+              margin-top: 24px;
+              padding-top: 16px;
+              border-top: 1px solid var(--border);
+            "
+          >
+            <button class="btn btn-danger" onclick="seDelete()">
+              🗑 Delete This Song
+            </button>
+          </div>
+        </div>
+        <!-- /se-content -->
       </div>
+      <!-- /se-panel -->
     </div>
+    <!-- /song-editor-overlay -->
 
     <!-- ─── Toast container ──────────────────────────────────────── -->
     <div id="toast-container"></div>
@@ -3882,16 +4950,173 @@
         LAST_PULL: "musician_last_pull",
         EXPENSES: "musician_expenses",
         CONTACTS: "musician_contacts",
+        AUDIO_PENDING: "musician_audio_pending",
+        AUDIO_SYNCED: "musician_audio_synced",
+        AUDIO_DELETE_PENDING: "musician_audio_delete_pending",
       };
 
       function loadState() {
         App.songs = JSON.parse(localStorage.getItem(LS.SONGS) || "[]");
         App.setlists = JSON.parse(localStorage.getItem(LS.SETLISTS) || "[]");
+        migrateSongs();
       }
 
       function saveState() {
         localStorage.setItem(LS.SONGS, JSON.stringify(App.songs));
         localStorage.setItem(LS.SETLISTS, JSON.stringify(App.setlists));
+      }
+
+      // ================================================================
+      //  INDEXEDDB — AUDIO FILE STORAGE
+      // ================================================================
+      let _db = null;
+
+      async function initDB() {
+        return new Promise((resolve, reject) => {
+          const req = indexedDB.open("MusicianToolkitDB", 1);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains("audioFiles")) {
+              db.createObjectStore("audioFiles", { keyPath: "id" });
+            }
+          };
+          req.onsuccess = (e) => {
+            _db = e.target.result;
+            resolve(_db);
+          };
+          req.onerror = (e) => reject(e.target.error);
+        });
+      }
+
+      async function saveAudio(
+        id,
+        blob,
+        filename,
+        mimeType,
+        size,
+        songId,
+        label,
+        date,
+      ) {
+        return new Promise((resolve, reject) => {
+          const tx = _db.transaction("audioFiles", "readwrite");
+          tx.objectStore("audioFiles").put({
+            id,
+            blob,
+            filename,
+            mimeType,
+            size,
+            songId,
+            label,
+            date,
+          });
+          tx.oncomplete = () => resolve();
+          tx.onerror = (e) => reject(e.target.error);
+        });
+      }
+
+      async function getAudio(id) {
+        return new Promise((resolve, reject) => {
+          const tx = _db.transaction("audioFiles", "readonly");
+          const req = tx.objectStore("audioFiles").get(id);
+          req.onsuccess = (e) => resolve(e.target.result || null);
+          req.onerror = (e) => reject(e.target.error);
+        });
+      }
+
+      async function deleteAudio(id) {
+        return new Promise((resolve, reject) => {
+          const tx = _db.transaction("audioFiles", "readwrite");
+          tx.objectStore("audioFiles").delete(id);
+          tx.oncomplete = () => resolve();
+          tx.onerror = (e) => reject(e.target.error);
+        });
+      }
+
+      async function getAllAudioIds() {
+        return new Promise((resolve, reject) => {
+          const tx = _db.transaction("audioFiles", "readonly");
+          const req = tx.objectStore("audioFiles").getAllKeys();
+          req.onsuccess = (e) => resolve(e.target.result || []);
+          req.onerror = (e) => reject(e.target.error);
+        });
+      }
+
+      async function hasAudio(id) {
+        return new Promise((resolve, reject) => {
+          const tx = _db.transaction("audioFiles", "readonly");
+          const req = tx.objectStore("audioFiles").count(id);
+          req.onsuccess = (e) => resolve(e.target.result > 0);
+          req.onerror = (e) => reject(e.target.error);
+        });
+      }
+
+      // ================================================================
+      //  MIGRATION — v1 → v2 song format
+      // ================================================================
+      function migrateSongs() {
+        let changed = false;
+        App.songs = App.songs.map((s) => {
+          if (s._v2) return s;
+          changed = true;
+          const sections = s.sections || [];
+          if (!sections.length && s.notes) {
+            sections.push({
+              id: uuid(),
+              name: "Verse 1",
+              chords: "",
+              lyrics: s.notes,
+              notes: "",
+              repeatCount: 1,
+            });
+          }
+          return {
+            _v2: true,
+            id: s.id,
+            type: s.type || "original",
+            status: s.status || "idea",
+            title: s.title || "Untitled",
+            artist: s.artist || "",
+            coWriters: s.coWriters || "",
+            description: s.description || "",
+            key: s.key || "",
+            bpm: s.bpm || 0,
+            timeSignature: s.timeSig || s.timeSignature || "4/4",
+            capo: s.capo || 0,
+            feel: s.feel || "",
+            tags: s.tags || (s.genre ? s.genre : ""),
+            strummingPattern: s.strummingPattern || "",
+            ampSettings: s.ampSettings || s.gearNotes || "",
+            pedals: s.pedals || "",
+            liveNotes: s.liveNotes || "",
+            sections,
+            scratchpad: s.scratchpad || "",
+            referenceLink: s.referenceLink || "",
+            referenceNotes: s.referenceNotes || "",
+            copyrightYear: s.copyrightYear || "",
+            proRegistration: s.proRegistration || "",
+            isrc: s.isrc || "",
+            audioFiles: s.audioFiles || [],
+            createdAt:
+              s.createdAt ||
+              (s.created
+                ? new Date(s.created).toISOString()
+                : new Date().toISOString()),
+            updatedAt:
+              s.updatedAt ||
+              (s.updated
+                ? new Date(s.updated).toISOString()
+                : new Date().toISOString()),
+          };
+        });
+        if (changed) saveState();
+      }
+
+      function uuid() {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+          const r = (Math.random() * 16) | 0;
+          return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
+        });
       }
 
       // ================================================================
@@ -4245,6 +5470,38 @@
         return decodeURIComponent(escape(atob(b64.replace(/\n/g, ""))));
       }
 
+      // Blob → base64 (strips data-URL prefix)
+      function blobToBase64(blob) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result.split(",")[1]);
+          reader.onerror = () => reject(reader.error);
+          reader.readAsDataURL(blob);
+        });
+      }
+
+      function _syncProgressShow(text) {
+        const wrap = document.getElementById("sync-progress-wrap");
+        const fill = document.getElementById("sync-progress-fill");
+        const txt = document.getElementById("sync-progress-text");
+        if (wrap) wrap.style.display = "block";
+        if (fill) fill.style.width = "0%";
+        if (txt) txt.textContent = text;
+      }
+
+      function _syncProgressUpdate(done, total, label) {
+        const fill = document.getElementById("sync-progress-fill");
+        const txt = document.getElementById("sync-progress-text");
+        const pct = total ? Math.round((done / total) * 100) : 100;
+        if (fill) fill.style.width = `${pct}%`;
+        if (txt) txt.textContent = `${label}: ${done} / ${total}`;
+      }
+
+      function _syncProgressHide() {
+        const wrap = document.getElementById("sync-progress-wrap");
+        if (wrap) wrap.style.display = "none";
+      }
+
       // ── Push ──────────────────────────────────────────────────────
       async function githubPush() {
         const { owner, repo, token, filepath } = getGithubConfig();
@@ -4261,44 +5518,164 @@
         setBtnLoading(btn, true, "⬆️", "Pushing…");
 
         try {
-          // Build payload
+          // ── 1. Push data.json ──────────────────────────────────────
           const payload = {
-            version: 1,
+            version: 2,
             exported_at: new Date().toISOString(),
             songs: App.songs,
             setlists: App.setlists,
           };
           const content = toBase64(JSON.stringify(payload, null, 2));
-
-          // Get current SHA (needed if file already exists)
           const existing = await githubGetFile(owner, repo, token, filepath);
-          const sha = existing?.sha;
-
-          // PUT the file
-          const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}`;
-          const body = {
-            message: `Musician Toolkit backup — ${new Date().toISOString()}`,
-            content,
-            ...(sha ? { sha } : {}),
-          };
-
-          const res = await fetch(url, {
-            method: "PUT",
-            headers: githubHeaders(token),
-            body: JSON.stringify(body),
-          });
-
+          const res = await fetch(
+            `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}`,
+            {
+              method: "PUT",
+              headers: githubHeaders(token),
+              body: JSON.stringify({
+                message: `Musician Toolkit backup — ${new Date().toISOString()}`,
+                content,
+                ...(existing?.sha ? { sha: existing.sha } : {}),
+              }),
+            },
+          );
           if (!res.ok) {
             const errBody = await res.json().catch(() => ({}));
             throw new Error(githubErrorMessage(res.status, errBody));
           }
-
           const data = await res.json();
           const commitUrl = data.commit?.html_url || "";
-          const now = new Date().toISOString();
-          localStorage.setItem(LS.LAST_PUSH, now);
-          updateSyncInfo();
 
+          // ── 2. Push pending audio files ────────────────────────────
+          const pending = JSON.parse(
+            localStorage.getItem(LS.AUDIO_PENDING) || "[]",
+          );
+          if (pending.length > 0) {
+            _syncProgressShow(`Pushing audio: 0 / ${pending.length}`);
+            let done = 0,
+              failedFiles = [];
+
+            for (const audioId of [...pending]) {
+              try {
+                const rec = await getAudio(audioId);
+                if (!rec) {
+                  // Missing from IDB — clean up reference
+                  const p = JSON.parse(
+                    localStorage.getItem(LS.AUDIO_PENDING) || "[]",
+                  );
+                  localStorage.setItem(
+                    LS.AUDIO_PENDING,
+                    JSON.stringify(p.filter((x) => x !== audioId)),
+                  );
+                  done++;
+                  _syncProgressUpdate(done, pending.length, "Pushing audio");
+                  continue;
+                }
+                const ext = (
+                  rec.filename.split(".").pop() || "mp3"
+                ).toLowerCase();
+                const audioPath = `musician-toolkit/audio/${audioId}.${ext}`;
+                const audioUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${audioPath}`;
+                const b64 = await blobToBase64(rec.blob);
+                const existingA = await githubGetFile(
+                  owner,
+                  repo,
+                  token,
+                  audioPath,
+                );
+
+                const aRes = await fetch(audioUrl, {
+                  method: "PUT",
+                  headers: githubHeaders(token),
+                  body: JSON.stringify({
+                    message: `Add audio: ${rec.filename}`,
+                    content: b64,
+                    ...(existingA?.sha ? { sha: existingA.sha } : {}),
+                  }),
+                });
+
+                if (aRes.ok) {
+                  const p = JSON.parse(
+                    localStorage.getItem(LS.AUDIO_PENDING) || "[]",
+                  );
+                  localStorage.setItem(
+                    LS.AUDIO_PENDING,
+                    JSON.stringify(p.filter((x) => x !== audioId)),
+                  );
+                  const s = JSON.parse(
+                    localStorage.getItem(LS.AUDIO_SYNCED) || "[]",
+                  );
+                  if (!s.includes(audioId)) s.push(audioId);
+                  localStorage.setItem(LS.AUDIO_SYNCED, JSON.stringify(s));
+                  // Mark synced in song metadata
+                  App.songs.forEach((song) => {
+                    const af = song.audioFiles?.find((f) => f.id === audioId);
+                    if (af) af.synced = true;
+                  });
+                  saveState();
+                } else {
+                  failedFiles.push(rec.filename);
+                }
+              } catch (err) {
+                failedFiles.push(audioId);
+              }
+              done++;
+              _syncProgressUpdate(done, pending.length, "Pushing audio");
+            }
+            _syncProgressHide();
+            updatePendingBadge();
+            if (failedFiles.length) {
+              toast(
+                "error",
+                "Some Audio Failed",
+                `${failedFiles.length} file(s) could not be pushed.`,
+              );
+            }
+          }
+
+          // ── 3. Delete audio queued for removal ─────────────────────
+          const delPending = JSON.parse(
+            localStorage.getItem(LS.AUDIO_DELETE_PENDING) || "[]",
+          );
+          for (const item of [...delPending]) {
+            try {
+              const ext = (
+                item.filename?.split(".").pop() || "mp3"
+              ).toLowerCase();
+              const audioPath = `musician-toolkit/audio/${item.id}.${ext}`;
+              const existingD = await githubGetFile(
+                owner,
+                repo,
+                token,
+                audioPath,
+              );
+              if (existingD?.sha) {
+                await fetch(
+                  `https://api.github.com/repos/${owner}/${repo}/contents/${audioPath}`,
+                  {
+                    method: "DELETE",
+                    headers: githubHeaders(token),
+                    body: JSON.stringify({
+                      message: `Remove audio: ${item.id}`,
+                      sha: existingD.sha,
+                    }),
+                  },
+                );
+              }
+              const dp = JSON.parse(
+                localStorage.getItem(LS.AUDIO_DELETE_PENDING) || "[]",
+              );
+              localStorage.setItem(
+                LS.AUDIO_DELETE_PENDING,
+                JSON.stringify(dp.filter((x) => x.id !== item.id)),
+              );
+            } catch {
+              /* best-effort */
+            }
+          }
+
+          localStorage.setItem(LS.LAST_PUSH, new Date().toISOString());
+          updateSyncInfo();
           toast(
             "success",
             "Pushed to GitHub",
@@ -4332,41 +5709,121 @@
           return;
         }
 
-        const confirmed = confirm(
-          "This will overwrite your local data with the GitHub version.\n\nContinue?",
-        );
-        if (!confirmed) return;
+        if (
+          !confirm(
+            "This will overwrite your local metadata with the GitHub version.\n\n" +
+              "Local audio files already in IndexedDB are preserved.\n\nContinue?",
+          )
+        )
+          return;
 
         const btn = document.getElementById("btn-pull");
         setBtnLoading(btn, true, "⬇️", "Pulling…");
 
         try {
+          // ── 1. Pull data.json ──────────────────────────────────────
           const file = await githubGetFile(owner, repo, token, filepath);
           if (!file)
             throw new Error(
               "File not found in the repository. Push your data first.",
             );
 
-          const raw = fromBase64(file.content);
-          const payload = JSON.parse(raw);
-
+          const payload = JSON.parse(fromBase64(file.content));
           if (
             !Array.isArray(payload.songs) ||
             !Array.isArray(payload.setlists)
           ) {
             throw new Error(
-              "Invalid data format — the file does not look like a Musician Toolkit backup.",
+              "Invalid data format — does not look like a Musician Toolkit backup.",
             );
           }
 
           App.songs = payload.songs;
           App.setlists = payload.setlists;
+          migrateSongs(); // ensure v2 format
           saveState();
 
-          const now = new Date().toISOString();
-          localStorage.setItem(LS.LAST_PULL, now);
-          updateSyncInfo();
+          // ── 2. Download missing audio files ────────────────────────
+          const allAudioMeta = App.songs.flatMap((s) => s.audioFiles || []);
+          if (allAudioMeta.length > 0) {
+            const localIds = await getAllAudioIds();
+            const missing = allAudioMeta.filter(
+              (af) => !localIds.includes(af.id),
+            );
 
+            if (missing.length > 0) {
+              _syncProgressShow(`Downloading audio: 0 / ${missing.length}`);
+              let downloaded = 0;
+
+              for (const af of missing) {
+                try {
+                  const ext =
+                    (af.filename || "").split(".").pop().toLowerCase() || "mp3";
+                  const audioPath = `musician-toolkit/audio/${af.id}.${ext}`;
+                  const audioFile = await githubGetFile(
+                    owner,
+                    repo,
+                    token,
+                    audioPath,
+                  );
+
+                  if (audioFile?.content) {
+                    const binaryStr = atob(
+                      audioFile.content.replace(/\n/g, ""),
+                    );
+                    const bytes = new Uint8Array(binaryStr.length);
+                    for (let i = 0; i < binaryStr.length; i++)
+                      bytes[i] = binaryStr.charCodeAt(i);
+                    const mimeType = af.mimeType || `audio/${ext}`;
+                    const blob = new Blob([bytes], { type: mimeType });
+                    await saveAudio(
+                      af.id,
+                      blob,
+                      af.filename,
+                      mimeType,
+                      blob.size,
+                      "",
+                      af.label || "",
+                      af.date || new Date().toISOString(),
+                    );
+
+                    // Mark synced
+                    App.songs.forEach((song) => {
+                      const songAf = song.audioFiles?.find(
+                        (f) => f.id === af.id,
+                      );
+                      if (songAf) songAf.synced = true;
+                    });
+                    const synced = JSON.parse(
+                      localStorage.getItem(LS.AUDIO_SYNCED) || "[]",
+                    );
+                    if (!synced.includes(af.id)) synced.push(af.id);
+                    localStorage.setItem(
+                      LS.AUDIO_SYNCED,
+                      JSON.stringify(synced),
+                    );
+                  }
+                } catch {
+                  /* skip files not yet on GitHub */
+                }
+
+                downloaded++;
+                _syncProgressUpdate(
+                  downloaded,
+                  missing.length,
+                  "Downloading audio",
+                );
+              }
+              _syncProgressHide();
+              saveState();
+            }
+          }
+
+          localStorage.setItem(LS.LAST_PULL, new Date().toISOString());
+          updateSyncInfo();
+          songsRender();
+          setlistRender();
+          updatePendingBadge();
           toast(
             "success",
             "Pulled from GitHub",
@@ -5762,170 +7219,1101 @@
         "Bm",
       ];
 
-      let _songEdit = null;
+      // ================================================================
+      //  SONG VAULT v2
+      // ================================================================
 
+      const STATUS_META = {
+        fragment: { icon: "🧩", label: "Fragment", types: ["original"] },
+        idea: { icon: "💡", label: "Idea", types: ["original"] },
+        "in-progress": {
+          icon: "🔨",
+          label: "In Progress",
+          types: ["original"],
+        },
+        finished: { icon: "✅", label: "Finished", types: ["original"] },
+        performing: {
+          icon: "🎤",
+          label: "Performing",
+          types: ["original", "cover"],
+        },
+        learning: { icon: "📚", label: "Learning", types: ["cover"] },
+        ready: { icon: "✅", label: "Ready", types: ["cover"] },
+      };
+
+      let _songTypeFilter = "all";
+      let _songStatusFilter = "all";
+
+      // ── Init ─────────────────────────────────────────────────────────
       function songsInit() {
-        const kf = document.getElementById("songs-filter-key");
-        const ms = document.getElementById("sm-key");
-        SONG_KEYS.forEach((k) => {
-          kf.appendChild(new Option(k, k));
-          ms.appendChild(new Option(k, k));
+        ["se-key", "se-cover-key"].forEach((id) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          SONG_KEYS.forEach((k) => el.appendChild(new Option(k, k)));
         });
+
         document.addEventListener("keydown", (e) => {
-          if (
-            e.key === "Escape" &&
-            document.getElementById("song-modal").style.display !== "none"
-          )
-            songModalClose();
+          if (e.key === "Escape") {
+            const se = document.getElementById("song-editor-overlay");
+            const qc = document.getElementById("quick-capture-overlay");
+            if (se && se.style.display !== "none") {
+              songEditorClose();
+              return;
+            }
+            if (qc && qc.style.display !== "none") {
+              quickCaptureClose();
+            }
+          }
         });
+
+        songsUpdateStatusBar();
+        songsRender();
+        updatePendingBadge();
+      }
+
+      // ── Type / Status filters ─────────────────────────────────────────
+      function songsSetType(type) {
+        _songTypeFilter = type;
+        _songStatusFilter = "all";
+        document
+          .querySelectorAll(".type-btn")
+          .forEach((b) =>
+            b.classList.toggle("active", b.dataset.type === type),
+          );
+        songsUpdateStatusBar();
         songsRender();
       }
 
+      function songsSetStatus(status) {
+        _songStatusFilter = status;
+        songsUpdateStatusBar();
+        songsRender();
+      }
+
+      function songsUpdateStatusBar() {
+        const row = document.getElementById("songs-status-row");
+        let entries = Object.entries(STATUS_META);
+        if (_songTypeFilter !== "all") {
+          entries = entries.filter(([, m]) =>
+            m.types.includes(_songTypeFilter),
+          );
+        }
+        row.innerHTML = [
+          `<button class="status-filter-btn${_songStatusFilter === "all" ? " active" : ""}" onclick="songsSetStatus('all')">All</button>`,
+          ...entries.map(
+            ([key, m]) =>
+              `<button class="status-filter-btn${_songStatusFilter === key ? " active" : ""}" onclick="songsSetStatus('${key}')">${m.icon} ${m.label}</button>`,
+          ),
+        ].join("");
+      }
+
+      // ── Render grid ───────────────────────────────────────────────────
       function songsRender() {
         const q = (
           document.getElementById("songs-search").value || ""
         ).toLowerCase();
-        const fk = document.getElementById("songs-filter-key").value;
         const srt = document.getElementById("songs-sort").value;
 
         let list = App.songs.filter((s) => {
-          const mq =
-            !q ||
-            s.title.toLowerCase().includes(q) ||
-            (s.artist || "").toLowerCase().includes(q) ||
-            (s.genre || "").toLowerCase().includes(q);
-          return mq && (!fk || s.key === fk);
+          if (_songTypeFilter !== "all" && s.type !== _songTypeFilter)
+            return false;
+          if (_songStatusFilter !== "all" && s.status !== _songStatusFilter)
+            return false;
+          if (q) {
+            const hay = [s.title, s.artist, s.tags, s.description, s.coWriters]
+              .join(" ")
+              .toLowerCase();
+            if (!hay.includes(q)) return false;
+          }
+          return true;
         });
 
         list.sort((a, b) => {
-          if (srt === "title") return a.title.localeCompare(b.title);
-          if (srt === "title-desc") return b.title.localeCompare(a.title);
-          if (srt === "date") return (b.created || 0) - (a.created || 0);
+          if (srt === "title")
+            return (a.title || "").localeCompare(b.title || "");
           if (srt === "bpm") return (a.bpm || 0) - (b.bpm || 0);
-          return 0;
+          if (srt === "key") return (a.key || "").localeCompare(b.key || "");
+          // default: updated (newest first)
+          return (b.updatedAt || b.createdAt || "") >
+            (a.updatedAt || a.createdAt || "")
+            ? 1
+            : -1;
         });
 
         const grid = document.getElementById("songs-grid");
         if (!list.length) {
           const none = !App.songs.length;
           grid.innerHTML = `<div class="song-empty">
-      <div class="song-empty-icon">📓</div>
-      <div class="song-empty-msg">${none ? "NO SONGS YET" : "NO RESULTS"}</div>
-      <div style="font-size:12px;color:var(--text-dimmer);margin-top:6px">
-        ${none ? "Press + NEW SONG to add your first song" : "Try a different search or filter"}
-      </div>
-    </div>`;
+            <div class="song-empty-icon">📓</div>
+            <div class="song-empty-msg">${none ? "NO SONGS YET" : "NO RESULTS"}</div>
+            <div style="font-size:12px;color:var(--text-dimmer);margin-top:6px">
+              ${none ? "Press + Quick Idea or + New Song to get started" : "Try a different search or filter"}
+            </div>
+          </div>`;
           return;
         }
+
         grid.innerHTML = list
+          .map((s) => {
+            const sm = STATUS_META[s.status] || {
+              icon: "•",
+              label: s.status || "",
+            };
+            const audioCount = s.audioFiles?.length || 0;
+            const sectionCount = s.sections?.length || 0;
+            const tags = (s.tags || "")
+              .split(",")
+              .map((t) => t.trim())
+              .filter(Boolean);
+            const metaParts = [];
+            if (s.key) metaParts.push(s.key);
+            if (s.bpm) metaParts.push(`${s.bpm} BPM`);
+            if (s.capo) metaParts.push(`Capo ${s.capo}`);
+
+            return `
+          <div class="song-card">
+            <div class="song-card-header">
+              <span class="song-card-status">${sm.icon} ${sm.label}</span>
+              <div class="song-card-actions">
+                <button class="btn btn-xs" onclick="event.stopPropagation();songEditorOpen('${s.id}')" title="Edit">✎</button>
+                <button class="btn btn-xs btn-danger" onclick="event.stopPropagation();songDeleteById('${s.id}')" title="Delete">✕</button>
+              </div>
+            </div>
+            <div class="song-card-title" onclick="songEditorOpen('${s.id}')">${escHtml(s.title || "Untitled")}</div>
+            ${s.artist && s.type === "cover" ? `<div class="song-card-artist">${escHtml(s.artist)}</div>` : ""}
+            <hr class="song-card-divider" />
+            ${metaParts.length ? `<div class="song-card-meta">${metaParts.join(" • ")}</div>` : ""}
+            ${
+              tags.length
+                ? `<div class="song-card-tags">${tags
+                    .slice(0, 5)
+                    .map((t) => `<span class="song-tag">${escHtml(t)}</span>`)
+                    .join("")}</div>`
+                : ""
+            }
+            <div class="song-card-footer">
+              <span>
+                ${sectionCount ? `📝 ${sectionCount} section${sectionCount !== 1 ? "s" : ""}` : ""}
+                ${audioCount ? `${sectionCount ? " &nbsp;" : ""}🎙️ ${audioCount} audio` : ""}
+                ${!sectionCount && !audioCount ? `<span style="color:var(--text-dimmer)">No content yet</span>` : ""}
+              </span>
+              <span class="song-type-badge ${s.type || "original"}">${s.type === "cover" ? "🎵" : "⭐"}</span>
+            </div>
+          </div>`;
+          })
+          .join("");
+      }
+
+      // ── Quick Capture ─────────────────────────────────────────────────
+      function quickCaptureOpen() {
+        document.getElementById("qc-title").value = "";
+        document.getElementById("qc-desc").value = "";
+        document.getElementById("qc-type").value = "original";
+        qcTypeChange();
+        document.getElementById("quick-capture-overlay").style.display = "flex";
+        setTimeout(() => document.getElementById("qc-title").focus(), 50);
+      }
+
+      function quickCaptureClose() {
+        document.getElementById("quick-capture-overlay").style.display = "none";
+      }
+
+      function qcOverlayBgClick(e) {
+        if (e.target === document.getElementById("quick-capture-overlay"))
+          quickCaptureClose();
+      }
+
+      function qcTypeChange() {
+        const type = document.getElementById("qc-type").value;
+        const sel = document.getElementById("qc-status");
+        const cur = sel.value;
+        sel.innerHTML = "";
+        const opts =
+          type === "cover"
+            ? [
+                ["learning", "📚 Learning"],
+                ["ready", "✅ Ready"],
+                ["performing", "🎤 Performing"],
+              ]
+            : [
+                ["idea", "💡 Idea"],
+                ["fragment", "🧩 Fragment"],
+                ["in-progress", "🔨 In Progress"],
+                ["finished", "✅ Finished"],
+                ["performing", "🎤 Performing"],
+              ];
+        opts.forEach(([v, l]) => sel.add(new Option(l, v)));
+        const valid = opts.some(([v]) => v === cur);
+        sel.value = valid ? cur : opts[0][0];
+      }
+
+      function quickCaptureSave() {
+        const title =
+          document.getElementById("qc-title").value.trim() || "Untitled Idea";
+        const desc = document.getElementById("qc-desc").value.trim();
+        const type = document.getElementById("qc-type").value;
+        const status = document.getElementById("qc-status").value;
+        const now = new Date().toISOString();
+
+        App.songs.unshift({
+          _v2: true,
+          id: uuid(),
+          type,
+          status,
+          title,
+          artist: "",
+          coWriters: "",
+          description: desc,
+          key: "",
+          bpm: 0,
+          timeSignature: "4/4",
+          capo: 0,
+          feel: "",
+          tags: "",
+          strummingPattern: "",
+          ampSettings: "",
+          pedals: "",
+          liveNotes: "",
+          sections: [],
+          scratchpad: "",
+          referenceLink: "",
+          referenceNotes: "",
+          copyrightYear: "",
+          proRegistration: "",
+          isrc: "",
+          audioFiles: [],
+          createdAt: now,
+          updatedAt: now,
+        });
+
+        saveState();
+        quickCaptureClose();
+        songsRender();
+        toast("success", "Idea Saved", `"${title}" added to your vault.`);
+      }
+
+      // ── Song Editor ───────────────────────────────────────────────────
+      let _seId = null;
+      let _seSections = [];
+      let _seAudioFiles = [];
+      let _seType = "original";
+      let _seTab = "song";
+      let _seDragSrc = null;
+      let _seActiveBlobUrls = [];
+
+      function songEditorOpen(id) {
+        _seId = id;
+        _seDragSrc = null;
+        _seActiveBlobUrls = [];
+        seSetTab("song");
+
+        if (id) {
+          const s = App.songs.find((x) => x.id === id);
+          if (!s) return;
+
+          document.getElementById("se-title").value = s.title || "";
+          _seType = s.type || "original";
+          document
+            .querySelectorAll(".se-type-btn")
+            .forEach((b) =>
+              b.classList.toggle("active", b.dataset.type === _seType),
+            );
+          seUpdateStatusOptions(_seType);
+          document.getElementById("se-status").value = s.status || "idea";
+          seUpdateTypeFields(_seType);
+
+          if (_seType === "original") {
+            document.getElementById("se-key").value = s.key || "";
+            document.getElementById("se-bpm").value = s.bpm || "";
+            document.getElementById("se-timesig").value =
+              s.timeSignature || "4/4";
+            document.getElementById("se-capo").value = s.capo || "";
+            document.getElementById("se-tags").value = s.tags || "";
+            document.getElementById("se-cowriters").value = s.coWriters || "";
+          } else {
+            document.getElementById("se-artist").value = s.artist || "";
+            document.getElementById("se-cover-key").value = s.key || "";
+            document.getElementById("se-cover-bpm").value = s.bpm || "";
+            document.getElementById("se-cover-capo").value = s.capo || "";
+            document.getElementById("se-cover-tags").value = s.tags || "";
+            const rl = s.referenceLink || "";
+            document.getElementById("se-reflink").value = rl;
+            seUpdateRefLink(rl);
+            document.getElementById("se-refnotes").value =
+              s.referenceNotes || "";
+          }
+
+          _seSections = JSON.parse(JSON.stringify(s.sections || []));
+          seSectionsRender();
+          document.getElementById("se-scratchpad").value = s.scratchpad || "";
+
+          // Details
+          document.getElementById("se-description").value = s.description || "";
+          document.getElementById("se-copyright").value = s.copyrightYear || "";
+          document.getElementById("se-pro").value = s.proRegistration || "";
+          document.getElementById("se-isrc").value = s.isrc || "";
+          document.getElementById("se-created-display").textContent =
+            s.createdAt ? seFormatDate(s.createdAt) : "—";
+          document.getElementById("se-updated-display").textContent =
+            s.updatedAt ? seFormatDate(s.updatedAt) : "—";
+          document.getElementById("se-details-original-fields").style.display =
+            _seType === "original" ? "block" : "none";
+
+          // Gear
+          document.getElementById("se-strumming").value =
+            s.strummingPattern || "";
+          document.getElementById("se-amp").value = s.ampSettings || "";
+          document.getElementById("se-pedals").value = s.pedals || "";
+          document.getElementById("se-live-notes").value = s.liveNotes || "";
+          const feel = s.feel || "";
+          document
+            .querySelectorAll('input[name="se-feel-radio"]')
+            .forEach((r) => (r.checked = r.value === feel));
+          if (!feel) document.getElementById("se-feel-none").checked = true;
+
+          // Audio
+          _seAudioFiles = JSON.parse(JSON.stringify(s.audioFiles || []));
+          seAudioRender();
+
+          document.getElementById("se-delete-row").style.display = "block";
+        } else {
+          // New song
+          document.getElementById("se-title").value = "";
+          _seType = "original";
+          document
+            .querySelectorAll(".se-type-btn")
+            .forEach((b) =>
+              b.classList.toggle("active", b.dataset.type === "original"),
+            );
+          seUpdateStatusOptions("original");
+          document.getElementById("se-status").value = "idea";
+          seUpdateTypeFields("original");
+
+          ["se-key", "se-bpm", "se-capo", "se-tags", "se-cowriters"].forEach(
+            (id) => {
+              const el = document.getElementById(id);
+              if (el) el.value = "";
+            },
+          );
+          document.getElementById("se-timesig").value = "4/4";
+          [
+            "se-artist",
+            "se-cover-bpm",
+            "se-cover-capo",
+            "se-cover-tags",
+            "se-reflink",
+            "se-refnotes",
+          ].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.value = "";
+          });
+          if (document.getElementById("se-cover-key"))
+            document.getElementById("se-cover-key").value = "";
+          document.getElementById("se-reflink-preview").style.display = "none";
+
+          _seSections = [];
+          seSectionsRender();
+          document.getElementById("se-scratchpad").value = "";
+
+          ["se-description", "se-copyright", "se-pro", "se-isrc"].forEach(
+            (id) => (document.getElementById(id).value = ""),
+          );
+          document.getElementById("se-created-display").textContent = "Now";
+          document.getElementById("se-updated-display").textContent = "Now";
+          document.getElementById("se-details-original-fields").style.display =
+            "block";
+
+          ["se-strumming", "se-amp", "se-pedals", "se-live-notes"].forEach(
+            (id) => (document.getElementById(id).value = ""),
+          );
+          document.getElementById("se-feel-none").checked = true;
+
+          _seAudioFiles = [];
+          seAudioRender();
+          document.getElementById("se-delete-row").style.display = "none";
+        }
+
+        document.getElementById("song-editor-overlay").style.display = "flex";
+        setTimeout(() => document.getElementById("se-title").focus(), 60);
+      }
+
+      function songEditorClose() {
+        _seActiveBlobUrls.forEach((u) => URL.revokeObjectURL(u));
+        _seActiveBlobUrls = [];
+        document.querySelectorAll(".se-audio-player audio").forEach((a) => {
+          a.pause();
+          a.src = "";
+        });
+        document.getElementById("song-editor-overlay").style.display = "none";
+      }
+
+      function seSetType(type) {
+        _seType = type;
+        document
+          .querySelectorAll(".se-type-btn")
+          .forEach((b) =>
+            b.classList.toggle("active", b.dataset.type === type),
+          );
+        seUpdateStatusOptions(type);
+        seUpdateTypeFields(type);
+        document.getElementById("se-details-original-fields").style.display =
+          type === "original" ? "block" : "none";
+      }
+
+      function seUpdateStatusOptions(type) {
+        const sel = document.getElementById("se-status");
+        const cur = sel.value;
+        sel.innerHTML = "";
+        const opts =
+          type === "cover"
+            ? [
+                ["learning", "📚 Learning"],
+                ["ready", "✅ Ready"],
+                ["performing", "🎤 Performing"],
+              ]
+            : [
+                ["fragment", "🧩 Fragment"],
+                ["idea", "💡 Idea"],
+                ["in-progress", "🔨 In Progress"],
+                ["finished", "✅ Finished"],
+                ["performing", "🎤 Performing"],
+              ];
+        opts.forEach(([v, l]) => sel.add(new Option(l, v)));
+        const valid = opts.some(([v]) => v === cur);
+        sel.value = valid ? cur : opts[0][0];
+      }
+
+      function seUpdateTypeFields(type) {
+        document.getElementById("se-original-fields").style.display =
+          type === "original" ? "block" : "none";
+        document.getElementById("se-cover-fields").style.display =
+          type === "cover" ? "block" : "none";
+      }
+
+      function seUpdateRefLink(url) {
+        const preview = document.getElementById("se-reflink-preview");
+        if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
+          document.getElementById("se-reflink-anchor").href = url;
+          preview.style.display = "block";
+        } else {
+          preview.style.display = "none";
+        }
+      }
+
+      function seSetTab(tab) {
+        _seTab = tab;
+        document
+          .querySelectorAll(".se-tab-btn")
+          .forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
+        document
+          .querySelectorAll(".se-tab-pane")
+          .forEach((p) =>
+            p.classList.toggle("active", p.id === `se-pane-${tab}`),
+          );
+        if (tab === "audio") seAudioRender();
+      }
+
+      function seFormatDate(iso) {
+        try {
+          return new Date(iso).toLocaleString();
+        } catch {
+          return iso;
+        }
+      }
+
+      // ── Sections ─────────────────────────────────────────────────────
+      const SECTION_NAMES = [
+        "Intro",
+        "Verse",
+        "Verse 1",
+        "Verse 2",
+        "Pre-Chorus",
+        "Chorus",
+        "Bridge",
+        "Solo",
+        "Outro",
+        "Hook",
+        "Custom",
+      ];
+
+      function seAddSection() {
+        _seSections.push({
+          id: uuid(),
+          name: "Verse",
+          chords: "",
+          lyrics: "",
+          notes: "",
+          repeatCount: 1,
+        });
+        seSectionsRender();
+        setTimeout(() => {
+          const c = document.getElementById("se-sections");
+          c.lastElementChild?.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+          });
+        }, 60);
+      }
+
+      function seRemoveSection(idx) {
+        _seSections.splice(idx, 1);
+        seSectionsRender();
+      }
+
+      function seSectionsRender() {
+        const c = document.getElementById("se-sections");
+        if (!_seSections.length) {
+          c.innerHTML = `<div style="color:var(--text-dimmer);font-size:13px;text-align:center;padding:16px 0">
+            No sections yet — click "+ Add Section" above
+          </div>`;
+          return;
+        }
+        c.innerHTML = _seSections
           .map(
-            (s) => `
-    <div class="song-card" onclick="songEdit('${s.id}')">
-      <div class="song-card-title">${escHtml(s.title)}</div>
-      ${s.artist ? `<div class="song-card-artist">${escHtml(s.artist)}</div>` : ""}
-      <div class="song-card-tags">
-        ${s.key ? `<span class="song-tag key-tag">${escHtml(s.key)}</span>` : ""}
-        ${s.bpm ? `<span class="song-tag">${s.bpm} BPM</span>` : ""}
-        ${s.duration ? `<span class="song-tag">${msToMin(s.duration)}</span>` : ""}
-        ${s.timeSig && s.timeSig !== "4/4" ? `<span class="song-tag">${escHtml(s.timeSig)}</span>` : ""}
-        ${s.genre ? `<span class="song-tag">${escHtml(s.genre)}</span>` : ""}
-      </div>
-    </div>`,
+            (sec, i) => `
+          <div class="se-section-card" draggable="true"
+            ondragstart="seSectionDragStart(${i})"
+            ondragover="seSectionDragOver(event,${i})"
+            ondrop="seSectionDrop(event,${i})"
+            ondragleave="seSectionDragLeave(event)"
+            id="se-sec-${i}">
+            <div class="se-section-hdr">
+              <span class="se-drag-handle" title="Drag to reorder">⠿</span>
+              <select class="se-section-name-sel" onchange="seSecUpdate(${i},'name',this.value)">
+                ${SECTION_NAMES.map((n) => `<option${sec.name === n ? " selected" : ""}>${escHtml(n)}</option>`).join("")}
+                ${!SECTION_NAMES.includes(sec.name) ? `<option selected>${escHtml(sec.name)}</option>` : ""}
+              </select>
+              <input type="number" class="field-input" value="${sec.repeatCount || 1}" min="1" max="20"
+                title="Repeat count" style="width:65px;padding:4px 8px;flex-shrink:0"
+                onchange="seSecUpdate(${i},'repeatCount',parseInt(this.value)||1)" />
+              <button class="btn btn-xs btn-danger" onclick="seRemoveSection(${i})">✕</button>
+            </div>
+            <div class="field-group" style="margin-bottom:8px">
+              <label class="field-label" style="font-size:10px">Chords</label>
+              <input type="text" class="field-input" value="${escHtml(sec.chords || "")}"
+                placeholder="Am - F - C - G"
+                style="font-family:var(--font-mono);font-size:13px"
+                oninput="seSecUpdate(${i},'chords',this.value)" />
+            </div>
+            <div class="field-group" style="margin-bottom:8px">
+              <label class="field-label" style="font-size:10px">Lyrics</label>
+              <textarea class="field-input" rows="3"
+                style="resize:vertical;font-family:var(--font-mono);font-size:12px;line-height:1.6"
+                placeholder="Lyrics here…"
+                oninput="seSecUpdate(${i},'lyrics',this.value)">${escHtml(sec.lyrics || "")}</textarea>
+            </div>
+            <div class="field-group" style="margin-bottom:0">
+              <label class="field-label" style="font-size:10px">Notes</label>
+              <input type="text" class="field-input" value="${escHtml(sec.notes || "")}"
+                placeholder="Performance notes, cues…"
+                oninput="seSecUpdate(${i},'notes',this.value)" />
+            </div>
+          </div>`,
           )
           .join("");
       }
 
-      function songNew() {
-        _songEdit = null;
-        document.getElementById("song-modal-title").textContent = "NEW SONG";
-        ["sm-title", "sm-artist", "sm-genre", "sm-bpm", "sm-notes"].forEach(
-          (id) => (document.getElementById(id).value = ""),
-        );
-        document.getElementById("sm-key").value = "";
-        document.getElementById("sm-timesig").value = "4/4";
-        document.getElementById("sm-duration").value = "0";
-        document.getElementById("sm-mb-results").style.display = "none";
-        document.getElementById("sm-delete-btn").style.display = "none";
-        document.getElementById("song-modal").style.display = "flex";
-        setTimeout(() => document.getElementById("sm-title").focus(), 50);
+      function seSecUpdate(idx, field, value) {
+        if (_seSections[idx]) _seSections[idx][field] = value;
       }
 
-      function songEdit(id) {
-        const s = App.songs.find((x) => x.id === id);
-        if (!s) return;
-        _songEdit = id;
-        document.getElementById("song-modal-title").textContent = "EDIT SONG";
-        document.getElementById("sm-title").value = s.title || "";
-        document.getElementById("sm-artist").value = s.artist || "";
-        document.getElementById("sm-genre").value = s.genre || "";
-        document.getElementById("sm-key").value = s.key || "";
-        document.getElementById("sm-bpm").value = s.bpm || "";
-        document.getElementById("sm-timesig").value = s.timeSig || "4/4";
-        document.getElementById("sm-notes").value = s.notes || "";
-        document.getElementById("sm-duration").value = s.duration || "0";
-        document.getElementById("sm-mb-results").style.display = "none";
-        document.getElementById("sm-delete-btn").style.display = "";
-        document.getElementById("song-modal").style.display = "flex";
-        setTimeout(() => document.getElementById("sm-title").focus(), 50);
+      function seSectionDragStart(idx) {
+        _seDragSrc = idx;
       }
 
-      function songSave() {
-        const title = document.getElementById("sm-title").value.trim();
+      function seSectionDragOver(e, idx) {
+        e.preventDefault();
+        document
+          .querySelectorAll(".se-section-card")
+          .forEach((el, i) =>
+            el.classList.toggle("drag-over", i === idx && idx !== _seDragSrc),
+          );
+      }
+
+      function seSectionDragLeave(e) {
+        e.currentTarget.classList.remove("drag-over");
+      }
+
+      function seSectionDrop(e, idx) {
+        e.preventDefault();
+        document
+          .querySelectorAll(".se-section-card")
+          .forEach((el) => el.classList.remove("drag-over"));
+        if (_seDragSrc === null || _seDragSrc === idx) return;
+        const moved = _seSections.splice(_seDragSrc, 1)[0];
+        _seSections.splice(idx, 0, moved);
+        _seDragSrc = null;
+        seSectionsRender();
+      }
+
+      // ── Audio ─────────────────────────────────────────────────────────
+      const ALLOWED_AUDIO_EXTS = ["mp3", "wav", "m4a", "ogg", "webm", "flac"];
+      const ALLOWED_AUDIO_TYPES = [
+        "audio/mpeg",
+        "audio/wav",
+        "audio/x-wav",
+        "audio/mp4",
+        "audio/m4a",
+        "audio/ogg",
+        "audio/webm",
+        "audio/flac",
+        "audio/x-flac",
+      ];
+      const MAX_AUDIO_BYTES = 50 * 1024 * 1024;
+
+      function seDropZoneDragOver(e) {
+        e.preventDefault();
+        document.getElementById("se-drop-zone").classList.add("drag-over");
+      }
+      function seDropZoneDragLeave() {
+        document.getElementById("se-drop-zone").classList.remove("drag-over");
+      }
+      function seDropZoneDrop(e) {
+        e.preventDefault();
+        document.getElementById("se-drop-zone").classList.remove("drag-over");
+        if (e.dataTransfer?.files?.length)
+          seHandleAudioFiles(e.dataTransfer.files);
+      }
+      function seAudioFileSelected(e) {
+        if (e.target.files?.length) seHandleAudioFiles(e.target.files);
+        e.target.value = "";
+      }
+
+      async function seHandleAudioFiles(files) {
+        for (const file of Array.from(files)) {
+          const ext = (file.name.split(".").pop() || "").toLowerCase();
+          if (
+            !ALLOWED_AUDIO_EXTS.includes(ext) &&
+            !ALLOWED_AUDIO_TYPES.includes(file.type)
+          ) {
+            toast(
+              "error",
+              "Unsupported Format",
+              "Please use MP3, WAV, M4A, OGG, WebM, or FLAC.",
+            );
+            continue;
+          }
+          if (file.size > MAX_AUDIO_BYTES) {
+            const mb = (file.size / 1024 / 1024).toFixed(1);
+            toast(
+              "error",
+              "File Too Large",
+              `This file is ${mb} MB. Maximum size is 50 MB.`,
+            );
+            continue;
+          }
+          const id = uuid();
+          const now = new Date().toISOString();
+          const meta = {
+            id,
+            label: "",
+            filename: file.name,
+            mimeType: file.type || `audio/${ext}`,
+            size: file.size,
+            date: now,
+            synced: false,
+          };
+          try {
+            await saveAudio(
+              id,
+              file,
+              file.name,
+              meta.mimeType,
+              file.size,
+              _seId || "pending",
+              "",
+              now,
+            );
+            _seAudioFiles.push(meta);
+            const pending = JSON.parse(
+              localStorage.getItem(LS.AUDIO_PENDING) || "[]",
+            );
+            if (!pending.includes(id)) pending.push(id);
+            localStorage.setItem(LS.AUDIO_PENDING, JSON.stringify(pending));
+            updatePendingBadge();
+            seAudioRender();
+            toast(
+              "success",
+              "Audio Saved",
+              `${file.name} (${seFormatBytes(file.size)}) stored locally.`,
+            );
+          } catch (err) {
+            toast("error", "Storage Error", err.message);
+          }
+        }
+      }
+
+      function seAudioRender() {
+        const list = document.getElementById("se-audio-list");
+        if (!list) return;
+        if (!_seAudioFiles.length) {
+          list.innerHTML = `<div style="color:var(--text-dimmer);font-size:13px;text-align:center;padding:20px 0">
+            No audio files yet — drop a file above to add one
+          </div>`;
+          return;
+        }
+        list.innerHTML = _seAudioFiles
+          .map((af) => {
+            const syncBadge = af.synced
+              ? `<span class="se-audio-sync-status synced">✅ Synced to GitHub</span>`
+              : `<span class="se-audio-sync-status pending">⏳ Not yet synced to GitHub</span>`;
+            return `
+          <div class="se-audio-item" id="se-ai-${af.id}">
+            <div class="se-audio-item-top">
+              <span class="se-audio-icon">🎵</span>
+              <span class="se-audio-name">${escHtml(af.filename)}</span>
+              <span class="se-audio-size">${seFormatBytes(af.size)}</span>
+              <span class="se-audio-date">${seFormatShortDate(af.date)}</span>
+            </div>
+            <div class="se-audio-label-row">
+              <span style="font-size:11px;color:var(--text-dimmer);flex-shrink:0">Label:</span>
+              <input type="text" class="se-audio-label-input" value="${escHtml(af.label || "")}"
+                placeholder="e.g. Verse melody idea, Full demo take 2…"
+                onchange="seAudioUpdateLabel('${af.id}',this.value)" />
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+              ${syncBadge}
+              <div class="se-audio-actions">
+                <button class="btn btn-xs btn-blue" onclick="seAudioPlay('${af.id}')">▶ Play</button>
+                <button class="btn btn-xs btn-danger" onclick="seAudioDelete('${af.id}')">🗑 Delete</button>
+              </div>
+            </div>
+            <div class="se-audio-player" id="se-ap-${af.id}">
+              <audio controls style="width:100%;height:32px"></audio>
+            </div>
+          </div>`;
+          })
+          .join("");
+      }
+
+      function seAudioUpdateLabel(id, label) {
+        const af = _seAudioFiles.find((f) => f.id === id);
+        if (af) af.label = label;
+      }
+
+      async function seAudioPlay(id) {
+        const wrap = document.getElementById(`se-ap-${id}`);
+        if (!wrap) return;
+        const audio = wrap.querySelector("audio");
+
+        if (wrap.style.display === "block") {
+          audio.pause();
+          const oldUrl = audio.src;
+          audio.src = "";
+          wrap.style.display = "none";
+          if (oldUrl) {
+            URL.revokeObjectURL(oldUrl);
+            _seActiveBlobUrls = _seActiveBlobUrls.filter((u) => u !== oldUrl);
+          }
+          return;
+        }
+        try {
+          const rec = await getAudio(id);
+          if (!rec) {
+            toast("error", "Not Found", "Audio not found in local storage.");
+            return;
+          }
+          const url = URL.createObjectURL(rec.blob);
+          _seActiveBlobUrls.push(url);
+          audio.src = url;
+          wrap.style.display = "block";
+          audio.play().catch(() => {});
+          audio.addEventListener(
+            "ended",
+            () => {
+              URL.revokeObjectURL(url);
+              _seActiveBlobUrls = _seActiveBlobUrls.filter((u) => u !== url);
+            },
+            { once: true },
+          );
+        } catch (err) {
+          toast("error", "Playback Error", err.message);
+        }
+      }
+
+      async function seAudioDelete(id) {
+        if (!confirm("Delete this audio file? This cannot be undone.")) return;
+        try {
+          const wrap = document.getElementById(`se-ap-${id}`);
+          if (wrap) {
+            const audio = wrap.querySelector("audio");
+            if (audio?.src) {
+              audio.pause();
+              URL.revokeObjectURL(audio.src);
+              audio.src = "";
+            }
+          }
+          const af = _seAudioFiles.find((f) => f.id === id);
+          await deleteAudio(id);
+          // Remove from pending
+          const pending = JSON.parse(
+            localStorage.getItem(LS.AUDIO_PENDING) || "[]",
+          );
+          localStorage.setItem(
+            LS.AUDIO_PENDING,
+            JSON.stringify(pending.filter((x) => x !== id)),
+          );
+          // If synced, queue for remote deletion
+          if (af?.synced) {
+            const dp = JSON.parse(
+              localStorage.getItem(LS.AUDIO_DELETE_PENDING) || "[]",
+            );
+            dp.push({ id, filename: af.filename, mimeType: af.mimeType });
+            localStorage.setItem(LS.AUDIO_DELETE_PENDING, JSON.stringify(dp));
+          }
+          const synced = JSON.parse(
+            localStorage.getItem(LS.AUDIO_SYNCED) || "[]",
+          );
+          localStorage.setItem(
+            LS.AUDIO_SYNCED,
+            JSON.stringify(synced.filter((x) => x !== id)),
+          );
+          _seAudioFiles = _seAudioFiles.filter((f) => f.id !== id);
+          updatePendingBadge();
+          seAudioRender();
+          toast("info", "Deleted", "Audio file removed.");
+        } catch (err) {
+          toast("error", "Delete Error", err.message);
+        }
+      }
+
+      function seFormatBytes(bytes) {
+        if (bytes < 1024) return `${bytes} B`;
+        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+        return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+      }
+
+      function seFormatShortDate(iso) {
+        try {
+          return new Date(iso).toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+          });
+        } catch {
+          return "";
+        }
+      }
+
+      // ── Save & Delete ─────────────────────────────────────────────────
+      function seSave() {
+        const title = document.getElementById("se-title").value.trim();
         if (!title) {
           toast("error", "Required", "Song title is required.");
-          document.getElementById("sm-title").focus();
+          document.getElementById("se-title").focus();
           return;
         }
-        const data = {
+        const type = _seType;
+        const status = document.getElementById("se-status").value;
+        const now = new Date().toISOString();
+        const feelRadio = document.querySelector(
+          'input[name="se-feel-radio"]:checked',
+        );
+
+        const base = {
+          _v2: true,
+          type,
+          status,
           title,
-          artist: document.getElementById("sm-artist").value.trim(),
-          genre: document.getElementById("sm-genre").value.trim(),
-          key: document.getElementById("sm-key").value,
-          bpm: parseInt(document.getElementById("sm-bpm").value) || 0,
-          timeSig: document.getElementById("sm-timesig").value,
-          notes: document.getElementById("sm-notes").value,
-          duration: parseInt(document.getElementById("sm-duration").value) || 0,
-          updated: Date.now(),
+          strummingPattern: document
+            .getElementById("se-strumming")
+            .value.trim(),
+          ampSettings: document.getElementById("se-amp").value.trim(),
+          pedals: document.getElementById("se-pedals").value.trim(),
+          liveNotes: document.getElementById("se-live-notes").value.trim(),
+          feel: feelRadio?.value || "",
+          description: document.getElementById("se-description").value.trim(),
+          copyrightYear: document.getElementById("se-copyright").value.trim(),
+          proRegistration: document.getElementById("se-pro").value.trim(),
+          isrc: document.getElementById("se-isrc").value.trim(),
+          sections: _seSections,
+          scratchpad: document.getElementById("se-scratchpad").value,
+          audioFiles: _seAudioFiles,
+          updatedAt: now,
         };
-        if (_songEdit) {
-          const i = App.songs.findIndex((x) => x.id === _songEdit);
-          if (i !== -1) App.songs[i] = { ...App.songs[i], ...data };
+
+        if (type === "original") {
+          Object.assign(base, {
+            artist: "",
+            coWriters: document.getElementById("se-cowriters").value.trim(),
+            key: document.getElementById("se-key").value,
+            bpm: parseInt(document.getElementById("se-bpm").value) || 0,
+            timeSignature: document.getElementById("se-timesig").value,
+            capo: parseInt(document.getElementById("se-capo").value) || 0,
+            tags: document.getElementById("se-tags").value.trim(),
+            referenceLink: "",
+            referenceNotes: "",
+          });
         } else {
-          App.songs.push({
-            id: `s_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
-            created: Date.now(),
-            ...data,
+          const rl = document.getElementById("se-reflink").value.trim();
+          seUpdateRefLink(rl);
+          Object.assign(base, {
+            artist: document.getElementById("se-artist").value.trim(),
+            coWriters: "",
+            key: document.getElementById("se-cover-key").value,
+            bpm: parseInt(document.getElementById("se-cover-bpm").value) || 0,
+            timeSignature: "4/4",
+            capo: parseInt(document.getElementById("se-cover-capo").value) || 0,
+            tags: document.getElementById("se-cover-tags").value.trim(),
+            referenceLink: rl,
+            referenceNotes: document.getElementById("se-refnotes").value.trim(),
           });
         }
+
+        if (_seId) {
+          const idx = App.songs.findIndex((s) => s.id === _seId);
+          if (idx !== -1) App.songs[idx] = { ...App.songs[idx], ...base };
+          // Update IndexedDB songId for new (pending) audio
+          _seAudioFiles.forEach((af) => {
+            if (!af.synced) {
+              getAudio(af.id).then((rec) => {
+                if (rec)
+                  saveAudio(
+                    rec.id,
+                    rec.blob,
+                    rec.filename,
+                    rec.mimeType,
+                    rec.size,
+                    _seId,
+                    af.label,
+                    rec.date,
+                  );
+              });
+            }
+          });
+        } else {
+          const newId = uuid();
+          App.songs.unshift({ id: newId, createdAt: now, ...base });
+          _seId = newId;
+          _seAudioFiles.forEach((af) => {
+            getAudio(af.id).then((rec) => {
+              if (rec)
+                saveAudio(
+                  rec.id,
+                  rec.blob,
+                  rec.filename,
+                  rec.mimeType,
+                  rec.size,
+                  newId,
+                  af.label,
+                  rec.date,
+                );
+            });
+          });
+          document.getElementById("se-delete-row").style.display = "block";
+        }
+
         saveState();
-        songModalClose();
         songsRender();
-        toast(
-          "success",
-          _songEdit ? "Updated" : "Saved",
-          _songEdit ? "Song updated." : "Song added.",
-        );
+        updatePendingBadge();
+        document.getElementById("se-updated-display").textContent =
+          seFormatDate(now);
+        toast("success", "Saved", `"${title}" saved.`);
       }
 
-      function songDelete() {
-        if (!_songEdit || !confirm("Delete this song? This cannot be undone."))
+      function seDelete() {
+        if (!_seId) return;
+        if (
+          !confirm(
+            "Delete this song?\n\nLocal audio files will also be removed. This cannot be undone.",
+          )
+        )
           return;
-        App.songs = App.songs.filter((s) => s.id !== _songEdit);
+        _seDeleteSongById(_seId);
+        songEditorClose();
+      }
+
+      function songDeleteById(id) {
+        if (!confirm("Delete this song?")) return;
+        _seDeleteSongById(id);
+      }
+
+      function _seDeleteSongById(id) {
+        const song = App.songs.find((s) => s.id === id);
+        if (song?.audioFiles?.length) {
+          song.audioFiles.forEach((af) => {
+            deleteAudio(af.id);
+            if (af.synced) {
+              const dp = JSON.parse(
+                localStorage.getItem(LS.AUDIO_DELETE_PENDING) || "[]",
+              );
+              dp.push({
+                id: af.id,
+                filename: af.filename,
+                mimeType: af.mimeType,
+              });
+              localStorage.setItem(LS.AUDIO_DELETE_PENDING, JSON.stringify(dp));
+            }
+            const pending = JSON.parse(
+              localStorage.getItem(LS.AUDIO_PENDING) || "[]",
+            );
+            localStorage.setItem(
+              LS.AUDIO_PENDING,
+              JSON.stringify(pending.filter((x) => x !== af.id)),
+            );
+          });
+        }
+        App.songs = App.songs.filter((s) => s.id !== id);
         App.setlists.forEach((sl) => {
-          sl.songs = sl.songs.filter((id) => id !== _songEdit);
+          sl.songs = sl.songs.filter((sid) => sid !== id);
         });
         saveState();
-        songModalClose();
         songsRender();
         setlistRender();
+        updatePendingBadge();
         toast("info", "Deleted", "Song removed.");
       }
 
-      function songModalClose() {
-        document.getElementById("song-modal").style.display = "none";
+      // ── Export ────────────────────────────────────────────────────────
+      function seSongExport() {
+        const s = _seId ? App.songs.find((x) => x.id === _seId) : null;
+        if (!s) {
+          toast("info", "Save first", "Save the song before exporting.");
+          return;
+        }
+        const lines = [s.title.toUpperCase()];
+        const meta = [];
+        if (s.key) meta.push(`Key: ${s.key}`);
+        if (s.capo) meta.push(`Capo: ${s.capo}`);
+        if (s.bpm) meta.push(`BPM: ${s.bpm}`);
+        if (s.timeSignature) meta.push(s.timeSignature);
+        if (meta.length) lines.push(meta.join(" | "));
+        if (s.tags) lines.push(`Tags: ${s.tags}`);
+        if (s.coWriters) lines.push(`Co-writers: ${s.coWriters}`);
+        if (s.copyrightYear) lines.push(`Copyright: ${s.copyrightYear}`);
+        if (s.type === "cover" && s.artist)
+          lines.push(`Original Artist: ${s.artist}`);
+        lines.push("");
+        (s.sections || []).forEach((sec) => {
+          lines.push(
+            `[${sec.name}]${sec.repeatCount > 1 ? ` (x${sec.repeatCount})` : ""}`,
+          );
+          if (sec.chords) lines.push(sec.chords);
+          if (sec.lyrics) lines.push(sec.lyrics);
+          if (sec.notes) lines.push(`// ${sec.notes}`);
+          lines.push("");
+        });
+        const blob = new Blob([lines.join("\n")], { type: "text/plain" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `${(s.title || "song").replace(/[^a-z0-9]/gi, "_")}.txt`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
       }
-      function songModalBgClick(e) {
-        if (e.target.id === "song-modal") songModalClose();
+
+      // ── Pending badge ─────────────────────────────────────────────────
+      function updatePendingBadge() {
+        const pending = JSON.parse(
+          localStorage.getItem(LS.AUDIO_PENDING) || "[]",
+        );
+        const badge = document.getElementById("songs-pending-badge");
+        const text = document.getElementById("songs-pending-text");
+        if (!badge || !text) return;
+        if (pending.length > 0) {
+          text.textContent = `⏳ ${pending.length} audio file${pending.length !== 1 ? "s" : ""} pending sync — push to GitHub to upload`;
+          badge.style.display = "flex";
+        } else {
+          badge.style.display = "none";
+        }
       }
 
       function escHtml(str) {
@@ -6758,7 +9146,7 @@
       // ================================================================
       //  INIT
       // ================================================================
-      (function init() {
+      (async function init() {
         loadState();
         mbLoadSettings();
         loadGithubSettings();
@@ -6767,6 +9155,12 @@
         chordsInit();
         scalesInit();
         cofInit();
+        // IndexedDB must be ready before songs tab renders
+        try {
+          await initDB();
+        } catch (e) {
+          console.warn("IndexedDB unavailable:", e);
+        }
         songsInit();
         setlistInit();
         toolsInit();
