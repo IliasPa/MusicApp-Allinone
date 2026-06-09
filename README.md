@@ -4,7 +4,7 @@
 
 # Musician Toolkit
 
-**v0.3** — A complete browser-based toolkit for guitarists, songwriters, and bands. No installation, no account, no server — everything runs locally in your browser with `localStorage` and `IndexedDB` for persistence.
+**v0.3.1** — A complete browser-based toolkit for guitarists, songwriters, and bands. No installation, no account, no server — everything runs locally in your browser with `localStorage` and `IndexedDB` for persistence.
 
 ---
 
@@ -13,15 +13,14 @@
 | Tab                 | Description                                                              |
 | ------------------- | ------------------------------------------------------------------------ |
 | 🎸 Tuner            | Chromatic tuner via microphone — cents meter, per-string reference panel |
-| 🥁 Metronome        | Tap tempo, time signatures 2/4–7/8, BPM 40–240                           |
+| 🥁 Metronome        | Tap tempo, time signatures 2/4–7/8, BPM 40–240; includes Speed Trainer for auto-ramping |
 | 🎵 Chords           | SVG chord diagrams with multiple voicings, search any chord              |
 | 🎼 Scales           | Interactive fretboard for 12 scale types, click to hear notes            |
 | ⭕ Circle of Fifths | Interactive major/minor rings, diatonic chord display, jump-to-chord     |
 | 📓 Song Vault       | Full song management — originals & covers, audio files, sections, gear notes, GitHub audio sync |
-| 📋 Setlist Builder  | Drag-and-drop setlists with runtime stats and print export               |
 | 🔧 Tools            | Chord transposer, capo calculator, rhyme finder                          |
+| 📋 Setlist Builder  | Drag-and-drop setlists with runtime stats and print export               |
 | 👂 Ear Training     | Play random intervals or chords via Web Audio — guess and score          |
-| ⚡ Speed Trainer    | Auto-ramping metronome: start slow, increase BPM every N seconds         |
 | 💸 Expense Splitter | Track shared band costs; calculates who owes who                         |
 | 📞 Band Contacts    | Names, roles, phones, emergency contacts for every member                |
 | ⚙️ Settings         | GitHub backup/restore — metadata + audio files                           |

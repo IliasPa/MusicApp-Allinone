@@ -3097,7 +3097,7 @@
               flex-shrink: 0;
             "
           />
-          Musician Toolkit <span>v0.3</span>
+          Musician Toolkit <span>v0.3.1</span>
         </div>
         <nav id="tab-nav">
           <button class="tab-btn" data-tab="tuner">🎸 Tuner</button>
@@ -3106,10 +3106,9 @@
           <button class="tab-btn" data-tab="scales">🎼 Scales</button>
           <button class="tab-btn" data-tab="circle">⭕ Circle</button>
           <button class="tab-btn" data-tab="songs">📓 Songs</button>
-          <button class="tab-btn" data-tab="setlist">📋 Setlist</button>
           <button class="tab-btn" data-tab="tools">🔧 Tools</button>
+          <button class="tab-btn" data-tab="setlist">📋 Setlist</button>
           <button class="tab-btn" data-tab="ear">👂 Ear</button>
-          <button class="tab-btn" data-tab="speed">⚡ Speed</button>
           <button class="tab-btn" data-tab="expenses">💸 Expenses</button>
           <button class="tab-btn" data-tab="contacts">📞 Contacts</button>
           <button class="tab-btn active" data-tab="settings">
@@ -3187,7 +3186,12 @@
 
         <!-- ─── Metronome Tab ────────────────────────────────────── -->
         <section id="tab-metronome" class="tab-panel">
-          <div class="metro-layout">
+          <div class="metro-inner-nav" style="display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
+            <button class="metro-inner-btn active" data-metro-tab="metronome" onclick="metroSetInnerTab('metronome')" style="padding: 8px 12px; border: none; background: transparent; color: var(--text); cursor: pointer; font-size: 14px; border-bottom: 2px solid var(--amber); font-weight: 500;">🥁 Metronome</button>
+            <button class="metro-inner-btn" data-metro-tab="speed" onclick="metroSetInnerTab('speed')" style="padding: 8px 12px; border: none; background: transparent; color: var(--text-dim); cursor: pointer; font-size: 14px; border-bottom: 2px solid transparent; font-weight: 500;">⚡ Speed</button>
+          </div>
+
+          <div id="metro-metronome-view" class="metro-layout">
             <!-- Main display -->
             <div class="metro-main">
               <!-- Beat dots (filled by metroInit) -->
@@ -3301,6 +3305,99 @@
               >
                 ▶ START
               </button>
+            </div>
+          </div>
+
+          <div id="metro-speed-view" style="display: none;">
+            <div class="speed-layout">
+              <div class="panel">
+                <div class="panel-title">
+                  <span class="icon">⚡</span> Speed Trainer
+                </div>
+                <p
+                  style="
+                    font-size: 13px;
+                    color: var(--text-dim);
+                    margin-bottom: 16px;
+                  "
+                >
+                  Practise a riff starting slow. BPM auto-increases by the step
+                  every N seconds until you reach your target.
+                </p>
+                <div class="speed-cfg">
+                  <div class="field-group">
+                    <label class="field-label">Start BPM</label>
+                    <input
+                      type="number"
+                      class="field-input"
+                      id="speed-start"
+                      value="60"
+                      min="40"
+                      max="240"
+                    />
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Target BPM</label>
+                    <input
+                      type="number"
+                      class="field-input"
+                      id="speed-target"
+                      value="120"
+                      min="40"
+                      max="240"
+                    />
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Step (BPM)</label>
+                    <input
+                      type="number"
+                      class="field-input"
+                      id="speed-step"
+                      value="5"
+                      min="1"
+                      max="20"
+                    />
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Interval (sec)</label>
+                    <input
+                      type="number"
+                      class="field-input"
+                      id="speed-interval"
+                      value="60"
+                      min="5"
+                      max="600"
+                    />
+                  </div>
+                </div>
+                <div
+                  style="
+                    margin-top: 16px;
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                  "
+                >
+                  <button
+                    class="btn btn-primary"
+                    id="speed-toggle-btn"
+                    onclick="speedToggle()"
+                    style="min-width: 100px"
+                  >
+                    ▶ START
+                  </button>
+                  <button class="btn btn-sm" onclick="speedReset()">Reset</button>
+                </div>
+              </div>
+              <div class="panel" style="padding: 20px 16px">
+                <div class="speed-bpm-disp" id="speed-bpm-disp">—</div>
+                <div class="speed-bpm-lbl">Current BPM</div>
+                <div class="speed-progress">
+                  <div class="speed-bar" id="speed-bar"></div>
+                </div>
+                <div class="speed-timer" id="speed-timer">—</div>
+                <div class="speed-beat-dots" id="speed-beat-dots"></div>
+              </div>
             </div>
           </div>
         </section>
@@ -3742,100 +3839,6 @@
           </div>
         </section>
 
-        <!-- ─── Speed Trainer Tab ─────────────────────────────────── -->
-        <section id="tab-speed" class="tab-panel">
-          <div class="speed-layout">
-            <div class="panel">
-              <div class="panel-title">
-                <span class="icon">⚡</span> Speed Trainer
-              </div>
-              <p
-                style="
-                  font-size: 13px;
-                  color: var(--text-dim);
-                  margin-bottom: 16px;
-                "
-              >
-                Practise a riff starting slow. BPM auto-increases by the step
-                every N seconds until you reach your target.
-              </p>
-              <div class="speed-cfg">
-                <div class="field-group">
-                  <label class="field-label">Start BPM</label>
-                  <input
-                    type="number"
-                    class="field-input"
-                    id="speed-start"
-                    value="60"
-                    min="40"
-                    max="240"
-                  />
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Target BPM</label>
-                  <input
-                    type="number"
-                    class="field-input"
-                    id="speed-target"
-                    value="120"
-                    min="40"
-                    max="240"
-                  />
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Step (BPM)</label>
-                  <input
-                    type="number"
-                    class="field-input"
-                    id="speed-step"
-                    value="5"
-                    min="1"
-                    max="20"
-                  />
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Interval (sec)</label>
-                  <input
-                    type="number"
-                    class="field-input"
-                    id="speed-interval"
-                    value="60"
-                    min="5"
-                    max="600"
-                  />
-                </div>
-              </div>
-              <div
-                style="
-                  margin-top: 16px;
-                  display: flex;
-                  gap: 8px;
-                  align-items: center;
-                "
-              >
-                <button
-                  class="btn btn-primary"
-                  id="speed-toggle-btn"
-                  onclick="speedToggle()"
-                  style="min-width: 100px"
-                >
-                  ▶ START
-                </button>
-                <button class="btn btn-sm" onclick="speedReset()">Reset</button>
-              </div>
-            </div>
-            <div class="panel" style="padding: 20px 16px">
-              <div class="speed-bpm-disp" id="speed-bpm-disp">—</div>
-              <div class="speed-bpm-lbl">Current BPM</div>
-              <div class="speed-progress">
-                <div class="speed-bar" id="speed-bar"></div>
-              </div>
-              <div class="speed-timer" id="speed-timer">—</div>
-              <div class="speed-beat-dots" id="speed-beat-dots"></div>
-            </div>
-          </div>
-        </section>
-
         <!-- ─── Expense Splitter Tab ──────────────────────────────── -->
         <section id="tab-expenses" class="tab-panel">
           <div class="exp-layout">
@@ -4092,7 +4095,7 @@
               <div class="panel-title"><span class="icon">🎸</span> About</div>
               <div class="about-header">
                 <span class="about-name">Musician Toolkit</span>
-                <span class="about-version">v0.3</span>
+                <span class="about-version">v0.3.1</span>
               </div>
               <p class="about-desc">
                 A professional daily-driver for guitarists and songwriters. Runs
@@ -4110,7 +4113,7 @@
                 </div>
                 <div
                   class="about-feat"
-                  data-tooltip="Click/tap metronome with tap-tempo, time signatures 2/4–7/8, and BPM 40–240. Visual orb flash + beat dots."
+                  data-tooltip="Click/tap metronome with tap-tempo, time signatures 2/4–7/8, and BPM 40–240. Visual orb flash + beat dots. Includes Speed Trainer for auto-ramping BPM practice."
                 >
                   <span class="feat-icon">🥁</span> Metronome
                 </div>
@@ -4161,12 +4164,6 @@
                   data-tooltip="Train your ear: hear a random interval or chord and guess what it is. Tracks your correct/total score."
                 >
                   <span class="feat-icon">👂</span> Ear Training
-                </div>
-                <div
-                  class="about-feat"
-                  data-tooltip="Start at a slow BPM and auto-ramp up by a set step every N seconds until you reach your target — perfect for drilling a difficult riff."
-                >
-                  <span class="feat-icon">⚡</span> Speed Trainer
                 </div>
                 <div
                   class="about-feat"
@@ -6324,6 +6321,34 @@
         const btn = document.getElementById("btn-tap");
         btn.classList.add("tapped");
         setTimeout(() => btn.classList.remove("tapped"), 120);
+      }
+
+      // Inner tab switching for metronome/speed
+      function metroSetInnerTab(tab) {
+        const metroView = document.getElementById("metro-metronome-view");
+        const speedView = document.getElementById("metro-speed-view");
+        const metroBtn = document.querySelector('[data-metro-tab="metronome"]');
+        const speedBtn = document.querySelector('[data-metro-tab="speed"]');
+
+        if (tab === "metronome") {
+          metroView.style.display = "";
+          speedView.style.display = "none";
+          metroBtn.classList.add("active");
+          metroBtn.style.color = "var(--text)";
+          metroBtn.style.borderBottomColor = "var(--amber)";
+          speedBtn.classList.remove("active");
+          speedBtn.style.color = "var(--text-dim)";
+          speedBtn.style.borderBottomColor = "transparent";
+        } else if (tab === "speed") {
+          metroView.style.display = "none";
+          speedView.style.display = "";
+          metroBtn.classList.remove("active");
+          metroBtn.style.color = "var(--text-dim)";
+          metroBtn.style.borderBottomColor = "transparent";
+          speedBtn.classList.add("active");
+          speedBtn.style.color = "var(--text)";
+          speedBtn.style.borderBottomColor = "var(--amber)";
+        }
       }
 
       // ================================================================
